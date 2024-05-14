@@ -7,7 +7,9 @@ import luckytnt.registry.BlockRegistry;
 import luckytntlib.item.LDynamiteItem;
 import luckytntlib.util.IExplosiveEntity;
 import luckytntlib.util.tnteffects.PrimedTNTEffect;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
@@ -34,6 +36,7 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.item.SnowballItem;
 import net.minecraft.world.item.SpectralArrowItem;
 import net.minecraft.world.item.ThrowablePotionItem;
+import net.minecraft.world.item.alchemy.PotionContents;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.phys.Vec3;
 
@@ -119,7 +122,10 @@ public class ItemFireworkEffect extends PrimedTNTEffect {
 							ent.getLevel().addFreshEntity(arrow);
 						} else {
 							Arrow arrow = new Arrow(ent.getLevel(), ent.x(), ent.y(), ent.z(), new ItemStack(Items.ARROW));
-							arrow.setEffectsFromItem(stack == null ? new ItemStack(item) : stack);
+							PotionContents contents = stack == null ? new ItemStack(item).getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY) : stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+							for(MobEffectInstance effect : contents.getAllEffects()) {
+								arrow.addEffect(effect);
+							}
 							arrow.setDeltaMovement(Math.random() * 6f - 3f, Math.random() * 6f - 3f, Math.random() * 6f - 3f);
 							ent.getLevel().addFreshEntity(arrow);
 						}

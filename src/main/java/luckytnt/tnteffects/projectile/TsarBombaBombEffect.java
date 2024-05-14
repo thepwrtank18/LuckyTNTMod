@@ -16,6 +16,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -31,7 +32,7 @@ public class TsarBombaBombEffect extends PrimedTNTEffect implements NuclearBombL
 
 	@Override
 	public void serverExplosion(IExplosiveEntity entity) {
-		if(entity.getLevel() instanceof ServerLevel sl) {
+		if(entity.getLevel() instanceof ServerLevel) {
 			PacketHandler.CHANNEL.send(new ClientboundHydrogenBombPacket(((Entity)entity).getId()), PacketDistributor.TRACKING_ENTITY.with((Entity)entity));
 		}
 		
@@ -41,7 +42,7 @@ public class TsarBombaBombEffect extends PrimedTNTEffect implements NuclearBombL
 		
 		List<LivingEntity> list = entity.getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(entity.x() - 90, entity.y() - 65, entity.z() - 90, entity.x() + 90, entity.y() + 65, entity.z() + 90));
 		for(LivingEntity living : list) {
-			living.addEffect(new MobEffectInstance(EffectRegistry.CONTAMINATED_EFFECT.get(), 3600, 0, true, true, true));
+			living.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(EffectRegistry.CONTAMINATED_EFFECT.get()), 3600, 0, true, true, true));
 		}
 		
 		for(int offX = -300; offX <= 300; offX++) {

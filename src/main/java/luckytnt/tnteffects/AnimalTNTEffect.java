@@ -25,7 +25,7 @@ public class AnimalTNTEffect extends PrimedTNTEffect{
 				Entity ent = entType.create(entity.getLevel());
 				ent.setPos(entity.getPos());
 				if(entity.getLevel() instanceof ServerLevel sLevel && ent instanceof Mob mob) {
-					mob.finalizeSpawn(sLevel, entity.getLevel().getCurrentDifficultyAt(toBlockPos(entity.getPos())), MobSpawnType.MOB_SUMMONED, null, null);
+					mob.finalizeSpawn(sLevel, entity.getLevel().getCurrentDifficultyAt(toBlockPos(entity.getPos())), MobSpawnType.MOB_SUMMONED, null);
 				}
 				entity.getLevel().addFreshEntity(ent);
 			}

@@ -1,9 +1,9 @@
 modLoader="javafml"
-loaderVersion="[49,)"
+loaderVersion="[50,)"
 license="All rights reserved"
 [[mods]]
 modId="luckytntmod"
-version="4.0"
+version="5.0"
 displayName="Lucky TNT Mod"
 logoFile="logo.png"
 credits="Created by SlimingHD and Fleshcrafter"
@@ -13,18 +13,18 @@ Lucky TNT adds tons of new TNT to destroy your world with!
 [[dependencies.luckytntmod]]
     modId="forge"
     mandatory=true
-    versionRange="[49,)"
+    versionRange="[50,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.luckytntmod]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.20.3,1.21)"
+    versionRange="[1.20.6,1.21)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.luckytntmod]]
 	modId="luckytntlib"
 	mandatory=true
-	versionRange="[49.0.2.0,)"
+	versionRange="[50.0.20.0,)"
 	ordering="NONE"
 	side="BOTH"

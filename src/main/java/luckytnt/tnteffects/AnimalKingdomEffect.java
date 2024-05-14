@@ -348,7 +348,7 @@ public class AnimalKingdomEffect extends PrimedTNTEffect {
 				if(Block.isFaceFull(ent.getLevel().getBlockState(pos.below()).getCollisionShape(ent.getLevel(), pos.below()), Direction.UP) && !Block.isFaceFull(state.getCollisionShape(ent.getLevel(), pos), Direction.UP)) {
 					mob.setPos(pos.getX(), pos.getY(), pos.getZ());
 					if(ent.getLevel() instanceof ServerLevel sl) {
-						mob.finalizeSpawn(sl, ent.getLevel().getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, null, null);
+						mob.finalizeSpawn(sl, ent.getLevel().getCurrentDifficultyAt(pos), MobSpawnType.MOB_SUMMONED, null);
 					}
 					ent.getLevel().addFreshEntity(mob);
 					break;

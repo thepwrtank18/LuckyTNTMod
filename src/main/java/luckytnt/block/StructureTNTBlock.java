@@ -13,7 +13,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -42,22 +43,21 @@ public class StructureTNTBlock extends LTNTBlock {
     }
     
     @Override
-    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-    	ItemStack stack = player.getItemInHand(hand);
+    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
     	if(stack.getItem() == Items.FLINT_AND_STEEL) {
     		onCaughtFire(state, level, pos, result.getDirection(), player);
     		level.setBlock(pos, Blocks.AIR.defaultBlockState(), 3);
     		if(!player.isCreative()) {
-    			stack.hurtAndBreak(1, player, event -> event.broadcastBreakEvent(hand));
+    			stack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
     		}
         	player.awardStat(Stats.ITEM_USED.get(stack.getItem()));
-        	return InteractionResult.sidedSuccess(level.isClientSide);
+        	return ItemInteractionResult.sidedSuccess(level.isClientSide);
     	}
     	else if(stack.getItem() == ItemRegistry.CONFIGURATION_WAND.get()) {
     		cycleThroughStructures(level, state, pos);
-    		return InteractionResult.sidedSuccess(level.isClientSide);
+    		return ItemInteractionResult.sidedSuccess(level.isClientSide);
     	}
-    	return InteractionResult.FAIL;
+    	return ItemInteractionResult.FAIL;
     }
     
     public void cycleThroughStructures(Level level, BlockState state, BlockPos pos) {

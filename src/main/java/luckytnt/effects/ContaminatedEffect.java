@@ -30,7 +30,7 @@ public class ContaminatedEffect extends MobEffect{
 	}
 
 	@Override
-	public void applyEffectTick(LivingEntity entity, int amplifier) {
+	public boolean applyEffectTick(LivingEntity entity, int amplifier) {
 		DamageSources sources = new DamageSources(entity.level().registryAccess());
 		
 		if(entity instanceof Player player) {
@@ -47,8 +47,15 @@ public class ContaminatedEffect extends MobEffect{
 			if(amplifier % i == 0) {
 				if (entity.getHealth() > 4.0F) {
 					entity.hurt(sources.magic(), 1.0F);
+					return true;
+				} else {
+					return false;
 				}
+			} else {
+				return false;
 			}
+		} else {
+			return false;
 		}
 	}
 }

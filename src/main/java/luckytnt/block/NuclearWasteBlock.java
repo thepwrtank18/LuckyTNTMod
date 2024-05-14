@@ -11,6 +11,7 @@ import luckytnt.registry.EffectRegistry;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -87,7 +88,7 @@ public class NuclearWasteBlock extends FallingBlock {
 		super.entityInside(state, level, pos, entity);
 		if(entity instanceof LivingEntity l_Entity) {
 			l_Entity.addEffect(new MobEffectInstance(MobEffects.POISON, 120, 4, false, true));
-			l_Entity.addEffect(new MobEffectInstance(EffectRegistry.CONTAMINATED_EFFECT.get(), 120, 0, false, true));
+			l_Entity.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(EffectRegistry.CONTAMINATED_EFFECT.get()), 120, 0, false, true));
 			l_Entity.addEffect(new MobEffectInstance(MobEffects.CONFUSION, 120, 0, false, true));
 		}
 		else if(entity instanceof ItemEntity i_Entity) {

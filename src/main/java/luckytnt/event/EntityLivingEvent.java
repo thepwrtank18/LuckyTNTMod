@@ -100,7 +100,7 @@ public class EntityLivingEvent {
 					ent.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 0));
 				}
 				if(ent.getPersistentData().getInt("heatTime") >= 1200 && ent.getPersistentData().getInt("heatTime") % 10 == 0) {
-					ent.setSecondsOnFire(ent.getPersistentData().getInt("heatTime") / 800);
+					ent.igniteForSeconds(ent.getPersistentData().getInt("heatTime") / 800);
 					ent.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SLOWDOWN, 100, 1));
 					ent.addEffect(new MobEffectInstance(MobEffects.WEAKNESS, 100, 1));
 				}

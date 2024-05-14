@@ -22,7 +22,6 @@ public class ToxicStoneBlock extends Block {
 	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	public void onPlace(BlockState state, Level level, BlockPos pos, BlockState oldstate, boolean moving) {
 		super.onPlace(state, level, pos, oldstate, moving);
 		level.scheduleTick(pos, this, 1, TickPriority.EXTREMELY_HIGH);
@@ -32,7 +31,6 @@ public class ToxicStoneBlock extends Block {
 	}
 	
 	@Override
-	@SuppressWarnings("deprecation")
 	public void tick(BlockState state, ServerLevel level, BlockPos pos, RandomSource rand) {
 		super.tick(state, level, pos, rand);
 		level.scheduleTick(pos, this, 1, TickPriority.EXTREMELY_HIGH);

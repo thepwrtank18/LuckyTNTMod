@@ -50,7 +50,7 @@ public class MidasTouchEffect extends MobEffect {
 	
 	@SuppressWarnings("deprecation")
 	@Override
-	public void applyEffectTick(LivingEntity entity, int amplifier) {
+	public boolean applyEffectTick(LivingEntity entity, int amplifier) {
 		Level level = entity.level();
 		if(!level.isClientSide) {
 
@@ -147,6 +147,10 @@ public class MidasTouchEffect extends MobEffect {
 			if(entity.getItemBySlot(EquipmentSlot.FEET) != ItemStack.EMPTY && entity.getItemBySlot(EquipmentSlot.HEAD).getItem() != Items.GOLDEN_BOOTS) {
 				entity.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.GOLDEN_BOOTS));
 			}
+			
+			return true;
+		} else {
+			return false;
 		}
 	}
 }

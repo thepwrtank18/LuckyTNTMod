@@ -12,6 +12,7 @@ import luckytntlib.util.explosions.ImprovedExplosion;
 import luckytntlib.util.tnteffects.PrimedTNTEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
@@ -37,7 +38,7 @@ public class NuclearTNTEffect extends PrimedTNTEffect{
 			@Override
 			public void doEntityExplosion(Entity entity, double distance) {
 				if(entity instanceof LivingEntity living) {
-					living.addEffect(new MobEffectInstance(EffectRegistry.CONTAMINATED_EFFECT.get(), 48 * strength));
+					living.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(EffectRegistry.CONTAMINATED_EFFECT.get()), 48 * strength));
 				}
 			}
 		});

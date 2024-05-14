@@ -1,6 +1,7 @@
 package luckytnt.tnteffects;
 
 import luckytnt.registry.BlockRegistry;
+import luckytnt.util.BlockSurviveChecks;
 import luckytntlib.util.IExplosiveEntity;
 import luckytntlib.util.explosions.ExplosionHelper;
 import luckytntlib.util.explosions.IForEachBlockExplosionEffect;
@@ -25,11 +26,10 @@ public class HeatWaveEffect extends PrimedTNTEffect {
 	public void serverExplosion(IExplosiveEntity ent) {
 		ExplosionHelper.doSphericalExplosion(ent.getLevel(), ent.getPos(), 150, new IForEachBlockExplosionEffect() {
 			
-			@SuppressWarnings("deprecation")
 			@Override
 			public void doBlockExplosion(Level level, BlockPos pos, BlockState state, double distance) {
 				if(state.getExplosionResistance(level, pos, ImprovedExplosion.dummyExplosion(ent.getLevel())) <= 200) {
-					if(state.isAir() && Blocks.FIRE.canSurvive(state, level, pos)) {
+					if(state.isAir() && BlockSurviveChecks.canFireSurvive(state, level, pos)) {
 						BlockPlaceContext ctx = new BlockPlaceContext(level, null, InteractionHand.MAIN_HAND, new ItemStack(Items.FLINT_AND_STEEL), new BlockHitResult(ent.getPos(), Direction.DOWN, pos, true));
 						BlockState stateForPlacement = Blocks.FIRE.getStateForPlacement(ctx);
 						level.setBlock(pos, stateForPlacement, 3);

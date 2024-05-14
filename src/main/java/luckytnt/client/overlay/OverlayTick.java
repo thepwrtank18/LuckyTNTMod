@@ -6,12 +6,13 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import luckytnt.config.LuckyTNTConfigValues;
 import luckytnt.registry.EffectRegistry;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.event.RenderGuiEvent;
+import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -24,19 +25,19 @@ public class OverlayTick {
 	@SuppressWarnings({ "resource" })
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent(priority = EventPriority.HIGH)
-	public static void onOverlayRender(RenderGuiEvent.Post event) {
+	public static void onOverlayRender(ScreenEvent.Render.Post event) {
 		Player player = Minecraft.getInstance().player;
-		int w = event.getWindow().getGuiScaledWidth();
-		int h = event.getWindow().getGuiScaledHeight();
+		int w = event.getGuiGraphics().guiWidth();
+		int h = event.getGuiGraphics().guiHeight();
 		RenderSystem.disableDepthTest();
 		RenderSystem.depthMask(false);
 		RenderSystem.enableBlend();
 		RenderSystem.blendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
-		if(player.getPersistentData().getInt("freezeTime") > 0 && !player.hasEffect(EffectRegistry.CONTAMINATED_EFFECT.get())) {
+		if(player.getPersistentData().getInt("freezeTime") > 0 && !player.hasEffect(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(EffectRegistry.CONTAMINATED_EFFECT.get()))) {
 			RenderSystem.setShaderColor(1f, 1f, 1f, (float)(player.getPersistentData().getInt("freezeTime")) / 1200f);
 			RenderSystem.setShaderTexture(0, new ResourceLocation("luckytntmod:textures/powder_snow_outline.png"));
 			event.getGuiGraphics().blit(new ResourceLocation("luckytntmod:textures/powder_snow_outline.png"), 0, 0, 0, 0, w, h, w, h);
-		} else if(player.hasEffect(EffectRegistry.CONTAMINATED_EFFECT.get()) && LuckyTNTConfigValues.RENDER_CONTAMINATED_OVERLAY.get()) {
+		} else if(player.hasEffect(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(EffectRegistry.CONTAMINATED_EFFECT.get())) && LuckyTNTConfigValues.RENDER_CONTAMINATED_OVERLAY.get()) {
 			RenderSystem.setShaderColor(1f, 1f, 1f, contaminatedAmount);
 			RenderSystem.setShaderTexture(0, new ResourceLocation("luckytntmod:textures/contaminated_outline.png"));
 			event.getGuiGraphics().blit(new ResourceLocation("luckytntmod:textures/contaminated_outline.png"), 0, 0, 0, 0, w, h, w, h);

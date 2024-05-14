@@ -13,7 +13,8 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -58,25 +59,23 @@ public class TunnelingTNTBlock extends LTNTBlock{
     }
     
 	@Override
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		ItemStack itemstack = player.getItemInHand(hand);
 		if (!itemstack.is(Items.FLINT_AND_STEEL) && !itemstack.is(Items.FIRE_CHARGE)) {
-			return super.use(state, level, pos, player, hand, result);
+			return super.useItemOn(stack, state, level, pos, player, hand, result);
 		} else {
 			onCaughtFire(state, level, pos, result.getDirection(), player);
 			Item item = itemstack.getItem();
 			if (!player.isCreative()) {
 				if (itemstack.is(Items.FLINT_AND_STEEL)) {
-					itemstack.hurtAndBreak(1, player, (p) -> {
-						p.broadcastBreakEvent(hand);
-					});
+					itemstack.hurtAndBreak(1, player, hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
 				} else {
 					itemstack.shrink(1);
 				}
 			}
 
 			player.awardStat(Stats.ITEM_USED.get(item));
-			return InteractionResult.sidedSuccess(level.isClientSide);
+			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		}
 	}
 

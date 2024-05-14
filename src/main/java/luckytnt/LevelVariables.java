@@ -2,6 +2,7 @@ package luckytnt;
 
 import luckytnt.network.ClientboundLevelVariablesPacket;
 import luckytnt.network.PacketHandler;
+import net.minecraft.core.HolderLookup.Provider;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.util.datafix.DataFixTypes;
@@ -46,7 +47,7 @@ public class LevelVariables extends SavedData{
 	
 	public static LevelVariables get(LevelAccessor level) {
 		if(level instanceof ServerLevelAccessor sLevel)
-			return sLevel.getLevel().getServer().getLevel(Level.OVERWORLD).getDataStorage().computeIfAbsent(new SavedData.Factory<LevelVariables>(LevelVariables::new, f -> LevelVariables.load(f), DataFixTypes.LEVEL), "ltm_level_variables");
+			return sLevel.getLevel().getServer().getLevel(Level.OVERWORLD).getDataStorage().computeIfAbsent(new SavedData.Factory<LevelVariables>(LevelVariables::new, (f, c) -> LevelVariables.load(f), DataFixTypes.LEVEL), "ltm_level_variables");
 		else
 			return clientSide;
 	}
@@ -54,5 +55,15 @@ public class LevelVariables extends SavedData{
 	public void sync(ServerLevel level) {
 		setDirty();
 		PacketHandler.CHANNEL.send(new ClientboundLevelVariablesPacket(this), PacketDistributor.DIMENSION.with(level.dimension()));
+	}
+
+	@Override
+	public CompoundTag save(CompoundTag tag, Provider provider) {
+		tag.putInt("doomsdayTime", doomsdayTime);
+		tag.putInt("toxicCloudsTime", toxicCloudsTime);
+		tag.putInt("iceAgeTime", iceAgeTime);
+		tag.putInt("heatDeathTime", heatDeathTime);
+		tag.putInt("tntRainTime", tntRainTime);
+		return tag;
 	}
 }

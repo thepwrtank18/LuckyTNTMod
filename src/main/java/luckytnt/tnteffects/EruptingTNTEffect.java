@@ -25,9 +25,9 @@ public class EruptingTNTEffect extends PrimedTNTEffect{
 					erupting_tnt.setPos(entity.getPos());
 					erupting_tnt.setOwner(entity.owner());
 					erupting_tnt.shoot((Math.random() * 2D - 1D) * 0.1f, 0.6f + Math.random() * 0.4f, (Math.random() * 2D - 1D) * 0.1f, 3f + level.random.nextFloat() * 2f, 0f);	
-					erupting_tnt.setSecondsOnFire(1000);
+					erupting_tnt.igniteForSeconds(1000);
 					level.addFreshEntity(erupting_tnt);
-					level.playSound(null, toBlockPos(entity.getPos()), SoundEvents.GENERIC_EXPLODE, SoundSource.MASTER, 3, 1);
+					level.playSound(null, toBlockPos(entity.getPos()), SoundEvents.GENERIC_EXPLODE.get(), SoundSource.MASTER, 3, 1);
 				}
 			}
 		}

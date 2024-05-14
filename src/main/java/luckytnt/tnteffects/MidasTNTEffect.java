@@ -13,6 +13,7 @@ import luckytntlib.util.explosions.ImprovedExplosion;
 import luckytntlib.util.tnteffects.PrimedTNTEffect;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.particles.DustParticleOptions;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.level.Level;
@@ -43,7 +44,7 @@ public class MidasTNTEffect extends PrimedTNTEffect {
 			BlockPos max = toBlockPos(ent.getPos()).offset(i, i, i);
 			List<LivingEntity> list = ent.getLevel().getEntitiesOfClass(LivingEntity.class, new AABB(min.getX(), min.getY(), min.getZ(), max.getX(), max.getY(), max.getZ()));
 			for(LivingEntity lent : list) {
-				lent.addEffect(new MobEffectInstance(EffectRegistry.MIDAS_TOUCH_EFFECT.get(), 2000, 0));
+				lent.addEffect(new MobEffectInstance(BuiltInRegistries.MOB_EFFECT.wrapAsHolder(EffectRegistry.MIDAS_TOUCH_EFFECT.get()), 2000, 0));
 			}
 		}
 	}

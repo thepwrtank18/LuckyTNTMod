@@ -60,7 +60,7 @@ public class DividingTNTEffect extends PrimedTNTEffect{
 				explosion.doBlockExplosion();
 				if(entity.getPersistentData().getInt("level") >= entity.getPersistentData().getInt("maxLevel")) {
 					Level level = entity.getLevel();
-					entity.getLevel().playSound((Entity)entity, toBlockPos(entity.getPos()), SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4f, (1f + (level.random.nextFloat() - level.random.nextFloat()) * 0.2f) * 0.7f);
+					entity.getLevel().playSound((Entity)entity, toBlockPos(entity.getPos()), SoundEvents.GENERIC_EXPLODE.get(), SoundSource.BLOCKS, 4f, (1f + (level.random.nextFloat() - level.random.nextFloat()) * 0.2f) * 0.7f);
 				}
 				entity.destroy();
 			}

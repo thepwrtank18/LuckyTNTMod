@@ -47,7 +47,7 @@ public class ReactionDynamiteEffect extends PrimedTNTEffect{
 				ImprovedExplosion explosion = new ImprovedExplosion(entity.getLevel(), (Entity)entity, entity.getPos().add(randomPos), Math.round(explosionSize));
 				explosion.doEntityExplosion(1f + 0.05f * explosionSize, true);
 				explosion.doBlockExplosion(1f, 1f, 0.75f, 1.25f, false, false);
-				level.playSound((Entity)entity, toBlockPos(entity.getPos().add(randomPos)), SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4f, (1f + (level.random.nextFloat() - level.random.nextFloat()) * 0.2f) * 0.7f);
+				level.playSound((Entity)entity, toBlockPos(entity.getPos().add(randomPos)), SoundEvents.GENERIC_EXPLODE.get(), SoundSource.BLOCKS, 4f, (1f + (level.random.nextFloat() - level.random.nextFloat()) * 0.2f) * 0.7f);
 				entity.getPersistentData().putInt("nextExplosion", 2 + level.random.nextInt(3));
 			}
 			entity.getPersistentData().putInt("nextExplosion", entity.getPersistentData().getInt("nextExplosion") - 1);

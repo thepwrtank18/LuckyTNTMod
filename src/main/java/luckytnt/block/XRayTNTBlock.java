@@ -32,8 +32,7 @@ public class XRayTNTBlock extends LTNTBlock{
     	return true;
     }
     
-    @SuppressWarnings("deprecation")
-	@Override
+    @Override
     public boolean skipRendering(BlockState state, BlockState state2, Direction direction) {
     	return state2.is(this) ? true : super.skipRendering(state, state2, direction);
     }
