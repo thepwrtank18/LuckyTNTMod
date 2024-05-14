@@ -46,7 +46,7 @@ public class ConfigScreen2 extends Screen {
 	
 	@Override
 	public void render(GuiGraphics stack, int mouseX, int mouseY, float partialTicks) {
-		renderBackground(stack, mouseX, mouseY, partialTicks);
+		super.render(stack, mouseX, mouseY, partialTicks);
 		stack.drawCenteredString(font, title, width / 2, 8, 0xFFFFFF);
 		stack.drawString(font, Component.translatable("luckytntmod.config.custom_tnt"), 20, 46, 0xFFFFFF);
 		stack.drawString(font, Component.translatable("luckytntmod.config.first_tnt"), 20, 66, 0xFFFFFF);
@@ -58,7 +58,6 @@ public class ConfigScreen2 extends Screen {
 		stack.drawString(font, Component.translatable("luckytntmod.config.third_tnt"), 20, 186, 0xFFFFFF);
 		stack.drawCenteredString(font, Component.translatable("luckytntmod.config.third_type"), width / 2, 206, 0xFFFFFF);
 		stack.drawCenteredString(font, Component.translatable("luckytntmod.config.third_intensity"), width / 2, 226, 0xFFFFFF);
-		super.render(stack, mouseX, mouseY, partialTicks);
 	}
 	
 	@Override
