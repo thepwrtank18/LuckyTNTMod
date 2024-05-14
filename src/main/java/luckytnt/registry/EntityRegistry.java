@@ -50,6 +50,7 @@ import luckytnt.tnteffects.projectile.MiniIceMeteorEffect;
 import luckytnt.tnteffects.projectile.MiniMeteorEffect;
 import luckytnt.tnteffects.projectile.MultiplyingDynamiteEffect;
 import luckytnt.tnteffects.projectile.PhobosMeteorEffect;
+import luckytnt.tnteffects.projectile.PresentMeteorEffect;
 import luckytnt.tnteffects.projectile.PulseDynamiteEffect;
 import luckytnt.tnteffects.projectile.RainbowDynamiteEffect;
 import luckytnt.tnteffects.projectile.ReactionDynamiteEffect;
@@ -110,7 +111,7 @@ public class EntityRegistry {
 	public static final RegistryObject<EntityType<PrimedLTNT>> TNT_X20 = LuckyTNTMod.RH.registerTNTEntity("tnt_x20", TNT_X20_EFFECT.fuse(160).buildTNT(() -> BlockRegistry.TNT_X20));
 	public static final RegistryObject<EntityType<PrimedLTNT>> TNT_X100 = LuckyTNTMod.RH.registerTNTEntity("tnt_x100", TNT_X100_EFFECT.fuse(200).buildTNT(() -> BlockRegistry.TNT_X100));
 	public static final RegistryObject<EntityType<PrimedLTNT>> TNT_X500 = LuckyTNTMod.RH.registerTNTEntity("tnt_x500", TNT_X500_EFFECT.fuse(240).buildTNT(() -> BlockRegistry.TNT_X500));
-	public static final RegistryObject<EntityType<PrimedLTNT>> COBBLESTONE_HOUSE_TNT = LuckyTNTMod.RH.registerTNTEntity("cooblestone_house_tnt", new HouseTNTEffect(() -> BlockRegistry.COBBLESTONE_HOUSE_TNT, "cobblehouse", -5, -3));
+	public static final RegistryObject<EntityType<PrimedLTNT>> COBBLESTONE_HOUSE_TNT = LuckyTNTMod.RH.registerTNTEntity("cobblestone_house_tnt", new HouseTNTEffect(() -> BlockRegistry.COBBLESTONE_HOUSE_TNT, "cobblehouse", -5, -3));
 	public static final RegistryObject<EntityType<PrimedLTNT>> WOOD_HOUSE_TNT = LuckyTNTMod.RH.registerTNTEntity("woodhouse_tnt", new HouseTNTEffect(() -> BlockRegistry.WOOD_HOUSE_TNT, "woodhouse", -5, -3));
 	public static final RegistryObject<EntityType<PrimedLTNT>> BRICK_HOUSE_TNT = LuckyTNTMod.RH.registerTNTEntity("brickhouse_tnt", new HouseTNTEffect(() -> BlockRegistry.BRICK_HOUSE_TNT, "brickhouse", -5, -3));
 	public static final RegistryObject<EntityType<PrimedLTNT>> DIGGING_TNT = LuckyTNTMod.RH.registerTNTEntity("digging_tnt", new DiggingTNTEffect());
@@ -297,6 +298,7 @@ public class EntityRegistry {
 	public static final RegistryObject<EntityType<PrimedLTNT>> EYE_OF_THE_SAHARA = LuckyTNTMod.RH.registerTNTEntity("eye_of_the_sahara", new EyeOfTheSaharaEffect());
 	public static final RegistryObject<EntityType<PrimedLTNT>> WORLD_OF_WOOLS = LuckyTNTMod.RH.registerTNTEntity("world_of_wools", new WorldOfWoolsEffect());
 	public static final RegistryObject<EntityType<PrimedLTNT>> DEIMOS = LuckyTNTMod.RH.registerTNTEntity("deimos", new DropProjectileTNTEffect(() -> EntityRegistry.DEIMOS_METEOR));
+	public static final RegistryObject<EntityType<PrimedLTNT>> PRESENT_DROP = LuckyTNTMod.RH.registerTNTEntity("present_drop", new DropProjectileTNTEffect(() -> EntityRegistry.PRESENT_METEOR));
 	
 	//Doomsday
 	public static final RegistryObject<EntityType<PrimedLTNT>> SUPERNOVA = LuckyTNTMod.RH.registerTNTEntity("supernova", new SupernovaEffect());
@@ -518,6 +520,7 @@ public class EntityRegistry {
 	public static final RegistryObject<EntityType<LExplosiveProjectile>> MINI_ICE_METEOR = LuckyTNTMod.RH.registerExplosiveProjectile("mini_ice_meteor", new MiniIceMeteorEffect(), 1f, false);
 	public static final RegistryObject<EntityType<LExplosiveProjectile>> DEIMOS_METEOR = LuckyTNTMod.RH.registerExplosiveProjectile("deimos_meteor", new DeimosMeteorEffect(), 4f, false);
 	public static final RegistryObject<EntityType<LExplosiveProjectile>> PHOBOS_METEOR = LuckyTNTMod.RH.registerExplosiveProjectile("phobos_meteor", new PhobosMeteorEffect(), 6f, false);
+	public static final RegistryObject<EntityType<LExplosiveProjectile>> PRESENT_METEOR = LuckyTNTMod.RH.registerExplosiveProjectile("present_meteor", new PresentMeteorEffect(), 4f, false);
 	
 	//Other
 	public static RegistryObject<EntityType<AngryMiner>> ANGRY_MINER = LuckyTNTMod.entityRegistry.register("angry_miner", () -> EntityType.Builder.<AngryMiner>of(AngryMiner::new, MobCategory.MISC).sized(0.6f, 1.8f).build("angry_miner"));

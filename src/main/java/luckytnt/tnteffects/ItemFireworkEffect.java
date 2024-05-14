@@ -48,7 +48,8 @@ public class ItemFireworkEffect extends PrimedTNTEffect {
 	public void serverExplosion(IExplosiveEntity entity) {
 		if(entity instanceof PrimedItemFirework ent) {
 			Item item = ent.item;
-			ItemStack stack = ent.stack;
+			ItemStack stack = ent.stack == null ? ItemStack.EMPTY : ent.stack;
+			stack.setCount(1);
 			if(item == null) {
 				item = Item.byId(ent.getPersistentData().getInt("itemID"));
 			}
@@ -113,11 +114,11 @@ public class ItemFireworkEffect extends PrimedTNTEffect {
 				} else if(item instanceof ArrowItem) {
 					for(int count = 0; count < 300; count++) {
 						if(item instanceof SpectralArrowItem) {
-							AbstractArrow arrow = new SpectralArrow(ent.getLevel(), ent.x(), ent.y(), ent.z());
+							AbstractArrow arrow = new SpectralArrow(ent.getLevel(), ent.x(), ent.y(), ent.z(), new ItemStack(Items.SPECTRAL_ARROW));
 							arrow.setDeltaMovement(Math.random() * 6f - 3f, Math.random() * 6f - 3f, Math.random() * 6f - 3f);
 							ent.getLevel().addFreshEntity(arrow);
 						} else {
-							Arrow arrow = new Arrow(ent.getLevel(), ent.x(), ent.y(), ent.z());
+							Arrow arrow = new Arrow(ent.getLevel(), ent.x(), ent.y(), ent.z(), new ItemStack(Items.ARROW));
 							arrow.setEffectsFromItem(stack == null ? new ItemStack(item) : stack);
 							arrow.setDeltaMovement(Math.random() * 6f - 3f, Math.random() * 6f - 3f, Math.random() * 6f - 3f);
 							ent.getLevel().addFreshEntity(arrow);
@@ -141,8 +142,8 @@ public class ItemFireworkEffect extends PrimedTNTEffect {
 					}
 				} else if(item instanceof FireworkRocketItem) {
 					for(int count = 0; count < 300; count++) {
-						FireworkRocketEntity rocket = new FireworkRocketEntity(ent.getLevel(), ent.x(), ent.y(), ent.z(), stack == null ? new ItemStack(item) : stack);
-						rocket.setDeltaMovement(Math.random() * 0.5f - 0.25f, Math.random() * 0.5f - 0.25f, Math.random() * 0.5f - 0.25f);
+						FireworkRocketEntity rocket = new FireworkRocketEntity(ent.getLevel(), stack == null ? new ItemStack(item) : stack, ent.x(), ent.y(), ent.z(), true);
+						rocket.setDeltaMovement(Math.random() * 2f - 1f, Math.random() * 2f - 1f, Math.random() * 2f - 1f);
 						ent.getLevel().addFreshEntity(rocket);
 					}
 				} else {
