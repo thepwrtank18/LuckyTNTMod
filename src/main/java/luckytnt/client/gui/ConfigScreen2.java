@@ -1,11 +1,20 @@
 package luckytnt.client.gui;
 
+import static luckytnt.client.gui.ConfigScreen.deactivatedButtonAction;
+
 import luckytnt.config.LuckyTNTConfigValues;
 import luckytnt.util.CustomTNTConfig;
+import luckytntlib.client.gui.CenteredStringWidget;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.StringWidget;
+import net.minecraft.client.gui.layouts.GridLayout;
+import net.minecraft.client.gui.layouts.GridLayout.RowHelper;
+import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
+import net.minecraft.client.gui.layouts.LayoutSettings;
+import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraftforge.client.gui.widget.ForgeSlider;
 import net.minecraftforge.common.ForgeConfigSpec;
@@ -18,6 +27,8 @@ public class ConfigScreen2 extends Screen {
 	ForgeSlider custom_tnt_second_explosion_intensity = null;
 	Button custom_tnt_third_explosion = null;
 	ForgeSlider custom_tnt_third_explosion_intensity = null;
+	
+	HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this, 20, 40);
 
 	public ConfigScreen2() {
 		super(Component.translatable("luckytntmod.config.title"));
@@ -25,39 +36,84 @@ public class ConfigScreen2 extends Screen {
 	
 	@Override
 	public void init() {
-		addRenderableWidget(new Button.Builder(Component.translatable("luckytntmod.config.done"), button -> onClose()).bounds((width - 100) / 2, height - 30, 100, 20).build());
-		addRenderableWidget(new Button.Builder(Component.translatable("luckytntmod.config.back"), button -> lastPage()).bounds(20, height - 30, 100, 20).build());
+		LinearLayout linear = layout.addToHeader(LinearLayout.vertical());
+		linear.addChild(new StringWidget(title, font), LayoutSettings::alignHorizontallyCenter);
 		
-		addRenderableWidget(custom_tnt_first_explosion = new Button.Builder(LuckyTNTConfigValues.CUSTOM_TNT_FIRST_EXPLOSION.get().getComponent(), button -> nextExplosionValue(LuckyTNTConfigValues.CUSTOM_TNT_FIRST_EXPLOSION, custom_tnt_first_explosion)).bounds(20, 80, 200, 20).build());
-		addRenderableWidget(custom_tnt_first_explosion_intensity = new ForgeSlider(20, 100, 200, 20, Component.literal(""), Component.literal(""), 1, 20, LuckyTNTConfigValues.CUSTOM_TNT_FIRST_EXPLOSION_INTENSITY.get().intValue(), true));
-		addRenderableWidget(new Button.Builder(Component.translatable("luckytntmod.config.reset"), button -> resetExplosion(LuckyTNTConfigValues.CUSTOM_TNT_FIRST_EXPLOSION, custom_tnt_first_explosion)).bounds(width - 220, 80, 200, 20).build());
-		addRenderableWidget(new Button.Builder(Component.translatable("luckytntmod.config.reset"), button -> resetIntValue(LuckyTNTConfigValues.CUSTOM_TNT_FIRST_EXPLOSION_INTENSITY, 1, custom_tnt_first_explosion_intensity)).bounds(width - 220, 100, 200, 20).build());
+		Button empty = new Button.Builder(Component.empty(), button -> deactivatedButtonAction()).size(100, 15).build();
 		
-		addRenderableWidget(custom_tnt_second_explosion = new Button.Builder(LuckyTNTConfigValues.CUSTOM_TNT_SECOND_EXPLOSION.get().getComponent(), button -> nextExplosionValue(LuckyTNTConfigValues.CUSTOM_TNT_SECOND_EXPLOSION, custom_tnt_second_explosion)).bounds(20, 140, 200, 20).build());
-		addRenderableWidget(custom_tnt_second_explosion_intensity = new ForgeSlider(20, 160, 200, 20, Component.literal(""), Component.literal(""), 1, 20, LuckyTNTConfigValues.CUSTOM_TNT_SECOND_EXPLOSION_INTENSITY.get().intValue(), true));
-		addRenderableWidget(new Button.Builder(Component.translatable("luckytntmod.config.reset"), button -> resetExplosion(LuckyTNTConfigValues.CUSTOM_TNT_SECOND_EXPLOSION, custom_tnt_second_explosion)).bounds(width - 220, 140, 200, 20).build());
-		addRenderableWidget(new Button.Builder(Component.translatable("luckytntmod.config.reset"), button -> resetIntValue(LuckyTNTConfigValues.CUSTOM_TNT_SECOND_EXPLOSION_INTENSITY, 1, custom_tnt_second_explosion_intensity)).bounds(width - 220, 160, 200, 20).build());
+		empty.active = false;
+		empty.visible = false;
+		empty.setAlpha(0f);
 		
-		addRenderableWidget(custom_tnt_third_explosion = new Button.Builder(LuckyTNTConfigValues.CUSTOM_TNT_THIRD_EXPLOSION.get().getComponent(), button -> nextExplosionValue(LuckyTNTConfigValues.CUSTOM_TNT_THIRD_EXPLOSION, custom_tnt_third_explosion)).bounds(20, 200, 200, 20).build());
-		addRenderableWidget(custom_tnt_third_explosion_intensity = new ForgeSlider(20, 220, 200, 20, Component.literal(""), Component.literal(""), 1, 20, LuckyTNTConfigValues.CUSTOM_TNT_THIRD_EXPLOSION_INTENSITY.get().intValue(), true));
-		addRenderableWidget(new Button.Builder(Component.translatable("luckytntmod.config.reset"), button -> resetExplosion(LuckyTNTConfigValues.CUSTOM_TNT_THIRD_EXPLOSION, custom_tnt_third_explosion)).bounds(width - 220, 200, 200, 20).build());
-		addRenderableWidget(new Button.Builder(Component.translatable("luckytntmod.config.reset"), button -> resetIntValue(LuckyTNTConfigValues.CUSTOM_TNT_THIRD_EXPLOSION_INTENSITY, 1, custom_tnt_third_explosion_intensity)).bounds(width - 220, 220, 200, 20).build());
+		GridLayout grid = new GridLayout();
+		grid.defaultCellSetting().paddingHorizontal(4).paddingBottom(1).alignHorizontallyCenter();
+		
+		RowHelper rows = grid.createRowHelper(3);
+		
+		rows.addChild(new CenteredStringWidget(Component.translatable("luckytntmod.config.custom_tnt"), font));
+		rows.addChild(empty);
+		rows.addChild(new CenteredStringWidget(Component.literal(""), font));
+		
+		rows.addChild(new CenteredStringWidget(Component.translatable("luckytntmod.config.first_tnt"), font));
+		rows.addChild(empty);
+		rows.addChild(new CenteredStringWidget(Component.literal(""), font));
+		
+		rows.addChild(custom_tnt_first_explosion = new Button.Builder(LuckyTNTConfigValues.CUSTOM_TNT_FIRST_EXPLOSION.get().getComponent(), button -> nextExplosionValue(LuckyTNTConfigValues.CUSTOM_TNT_FIRST_EXPLOSION, custom_tnt_first_explosion)).width(100).build());
+		rows.addChild(new CenteredStringWidget(Component.translatable("luckytntmod.config.first_type"), font));
+		rows.addChild(new Button.Builder(Component.translatable("luckytntmod.config.reset"), button -> resetExplosion(LuckyTNTConfigValues.CUSTOM_TNT_FIRST_EXPLOSION, custom_tnt_first_explosion)).width(100).build());
+		
+		rows.addChild(custom_tnt_first_explosion_intensity = new ForgeSlider(0, 0, 100, 20, Component.empty(), Component.empty(), 1, 20, LuckyTNTConfigValues.CUSTOM_TNT_FIRST_EXPLOSION_INTENSITY.get().intValue(), true));
+		rows.addChild(new CenteredStringWidget(Component.translatable("luckytntmod.config.first_intensity"), font));
+		rows.addChild(new Button.Builder(Component.translatable("luckytntmod.config.reset"), button -> resetIntValue(LuckyTNTConfigValues.CUSTOM_TNT_FIRST_EXPLOSION_INTENSITY, 1, custom_tnt_first_explosion_intensity)).width(100).build());
+		
+		rows.addChild(new CenteredStringWidget(Component.translatable("luckytntmod.config.second_tnt"), font));
+		rows.addChild(empty);
+		rows.addChild(new CenteredStringWidget(Component.literal(""), font));
+		
+		rows.addChild(custom_tnt_second_explosion = new Button.Builder(LuckyTNTConfigValues.CUSTOM_TNT_SECOND_EXPLOSION.get().getComponent(), button -> nextExplosionValue(LuckyTNTConfigValues.CUSTOM_TNT_SECOND_EXPLOSION, custom_tnt_second_explosion)).width(100).build());
+		rows.addChild(new CenteredStringWidget(Component.translatable("luckytntmod.config.second_type"), font));
+		rows.addChild(new Button.Builder(Component.translatable("luckytntmod.config.reset"), button -> resetExplosion(LuckyTNTConfigValues.CUSTOM_TNT_SECOND_EXPLOSION, custom_tnt_second_explosion)).width(100).build());
+		
+		rows.addChild(custom_tnt_second_explosion_intensity = new ForgeSlider(0, 0, 100, 20, Component.empty(), Component.empty(), 1, 20, LuckyTNTConfigValues.CUSTOM_TNT_SECOND_EXPLOSION_INTENSITY.get().intValue(), true));
+		rows.addChild(new CenteredStringWidget(Component.translatable("luckytntmod.config.second_intensity"), font));
+		rows.addChild(new Button.Builder(Component.translatable("luckytntmod.config.reset"), button -> resetIntValue(LuckyTNTConfigValues.CUSTOM_TNT_SECOND_EXPLOSION_INTENSITY, 1, custom_tnt_second_explosion_intensity)).width(100).build());
+		
+		rows.addChild(new CenteredStringWidget(Component.translatable("luckytntmod.config.third_tnt"), font));
+		rows.addChild(empty);
+		rows.addChild(new CenteredStringWidget(Component.literal(""), font));
+		
+		rows.addChild(custom_tnt_third_explosion = new Button.Builder(LuckyTNTConfigValues.CUSTOM_TNT_THIRD_EXPLOSION.get().getComponent(), button -> nextExplosionValue(LuckyTNTConfigValues.CUSTOM_TNT_THIRD_EXPLOSION, custom_tnt_third_explosion)).width(100).build());
+		rows.addChild(new CenteredStringWidget(Component.translatable("luckytntmod.config.third_type"), font));
+		rows.addChild(new Button.Builder(Component.translatable("luckytntmod.config.reset"), button -> resetExplosion(LuckyTNTConfigValues.CUSTOM_TNT_THIRD_EXPLOSION, custom_tnt_third_explosion)).width(100).build());
+		
+		rows.addChild(custom_tnt_third_explosion_intensity = new ForgeSlider(0, 0, 100, 20, Component.empty(), Component.empty(), 1, 20, LuckyTNTConfigValues.CUSTOM_TNT_THIRD_EXPLOSION_INTENSITY.get().intValue(), true));
+		rows.addChild(new CenteredStringWidget(Component.translatable("luckytntmod.config.third_intensity"), font));
+		rows.addChild(new Button.Builder(Component.translatable("luckytntmod.config.reset"), button -> resetIntValue(LuckyTNTConfigValues.CUSTOM_TNT_THIRD_EXPLOSION_INTENSITY, 1, custom_tnt_third_explosion_intensity)).width(100).build());
+		
+		Button back = new Button.Builder(Component.translatable("luckytntmod.config.back"), button -> lastPage()).width(100).build();
+		Button done = new Button.Builder(CommonComponents.GUI_DONE, button -> onClose()).width(100).build();
+		Button deactivated = new Button.Builder(Component.translatable("luckytntmod.config.next"), button -> deactivatedButtonAction()).width(100).build();
+		
+		deactivated.active = false;
+		
+		GridLayout grid2 = new GridLayout();
+		grid2.defaultCellSetting().paddingHorizontal(20).paddingBottom(4).alignHorizontallyCenter();
+		
+		RowHelper rows2 = grid2.createRowHelper(3);
+		
+		rows2.addChild(back);
+		rows2.addChild(done);
+		rows2.addChild(deactivated);
+		
+		layout.addToContents(grid);
+		layout.addToFooter(grid2);
+		layout.visitWidgets(this::addRenderableWidget);
+		repositionElements();
 	}
 	
 	@Override
-	public void render(GuiGraphics stack, int mouseX, int mouseY, float partialTicks) {
-		super.render(stack, mouseX, mouseY, partialTicks);
-		stack.drawCenteredString(font, title, width / 2, 8, 0xFFFFFF);
-		stack.drawString(font, Component.translatable("luckytntmod.config.custom_tnt"), 20, 46, 0xFFFFFF);
-		stack.drawString(font, Component.translatable("luckytntmod.config.first_tnt"), 20, 66, 0xFFFFFF);
-		stack.drawCenteredString(font, Component.translatable("luckytntmod.config.first_type"), width / 2, 86, 0xFFFFFF);
-		stack.drawCenteredString(font, Component.translatable("luckytntmod.config.first_intensity"), width / 2, 106, 0xFFFFFF);
-		stack.drawString(font, Component.translatable("luckytntmod.config.second_tnt"), 20, 126, 0xFFFFFF);
-		stack.drawCenteredString(font, Component.translatable("luckytntmod.config.second_type"), width / 2, 146, 0xFFFFFF);
-		stack.drawCenteredString(font, Component.translatable("luckytntmod.config.second_intensity"), width / 2, 166, 0xFFFFFF);
-		stack.drawString(font, Component.translatable("luckytntmod.config.third_tnt"), 20, 186, 0xFFFFFF);
-		stack.drawCenteredString(font, Component.translatable("luckytntmod.config.third_type"), width / 2, 206, 0xFFFFFF);
-		stack.drawCenteredString(font, Component.translatable("luckytntmod.config.third_intensity"), width / 2, 226, 0xFFFFFF);
+    public void repositionElements() {
+        layout.arrangeElements();
 	}
 	
 	@Override
@@ -88,20 +144,15 @@ public class ConfigScreen2 extends Screen {
 		CustomTNTConfig value = config.get();
 		if(value == CustomTNTConfig.NO_EXPLOSION) {
 			value = CustomTNTConfig.NORMAL_EXPLOSION;
-		}
-		else if(value == CustomTNTConfig.NORMAL_EXPLOSION) {
+		} else if(value == CustomTNTConfig.NORMAL_EXPLOSION) {
 			value = CustomTNTConfig.SPHERICAL_EXPLOSION;
-		}
-		else if(value == CustomTNTConfig.SPHERICAL_EXPLOSION) {
+		} else if(value == CustomTNTConfig.SPHERICAL_EXPLOSION) {
 			value = CustomTNTConfig.CUBICAL_EXPLOSION;
-		}
-		else if(value == CustomTNTConfig.CUBICAL_EXPLOSION) {
+		} else if(value == CustomTNTConfig.CUBICAL_EXPLOSION) {
 			value = CustomTNTConfig.EASTER_EGG;
-		}
-		else if(value == CustomTNTConfig.EASTER_EGG) {
+		} else if(value == CustomTNTConfig.EASTER_EGG) {
 			value = CustomTNTConfig.FIREWORK;
-		}
-		else if(value == CustomTNTConfig.FIREWORK) {
+		} else if(value == CustomTNTConfig.FIREWORK) {
 			value = CustomTNTConfig.NO_EXPLOSION;
 		}
 		config.set(value);
