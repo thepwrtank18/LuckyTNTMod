@@ -23,7 +23,7 @@
     }
   },
   "result": {
-    "item": "luckytntmod:item_firework",
+    "id": "luckytntmod:item_firework",
     "count": 1
   }
 }

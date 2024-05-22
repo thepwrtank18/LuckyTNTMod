@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "item": "minecraft:bedrock",
+    "id": "minecraft:bedrock",
     "count": 1
   }
 }

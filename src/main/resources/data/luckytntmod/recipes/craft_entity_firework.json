@@ -35,7 +35,7 @@
     }
   },
   "result": {
-    "item": "luckytntmod:entity_firework",
+    "id": "luckytntmod:entity_firework",
     "count": 1
   }
 }
