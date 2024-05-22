@@ -56,6 +56,13 @@ public class ItemFireworkEffect extends PrimedTNTEffect {
 			if(item == null) {
 				item = Item.byId(ent.getPersistentData().getInt("itemID"));
 			}
+			if(stack == null || stack.isEmpty()) {
+				if(item == null) {
+					return; 
+				} else {
+					stack = new ItemStack(item);
+				}
+			}
 			if(item != null) { 
 				if(item instanceof BoatItem boatitem) {
 					boolean hasChest = false;
@@ -110,7 +117,7 @@ public class ItemFireworkEffect extends PrimedTNTEffect {
 				} else if(item instanceof ThrowablePotionItem) {
 					for(int i = 0; i < 300; i++) {
 						ThrownPotion potion = new ThrownPotion(ent.getLevel(), ent.x(), ent.y(), ent.z());
-						potion.setItem(stack != null ? stack : new ItemStack(item));
+						potion.setItem(stack != null && !stack.isEmpty() ? stack : new ItemStack(item));
 						potion.setDeltaMovement(Math.random() * 3D - 1.5D, Math.random() * 3D - 1.5D, Math.random() * 3D - 1.5D);
 						ent.getLevel().addFreshEntity(potion);
 					}
@@ -122,7 +129,7 @@ public class ItemFireworkEffect extends PrimedTNTEffect {
 							ent.getLevel().addFreshEntity(arrow);
 						} else {
 							Arrow arrow = new Arrow(ent.getLevel(), ent.x(), ent.y(), ent.z(), new ItemStack(Items.ARROW));
-							PotionContents contents = stack == null ? new ItemStack(item).getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY) : stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
+							PotionContents contents = stack == null || stack.isEmpty() ? new ItemStack(item).getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY) : stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
 							for(MobEffectInstance effect : contents.getAllEffects()) {
 								arrow.addEffect(effect);
 							}
@@ -148,13 +155,13 @@ public class ItemFireworkEffect extends PrimedTNTEffect {
 					}
 				} else if(item instanceof FireworkRocketItem) {
 					for(int count = 0; count < 300; count++) {
-						FireworkRocketEntity rocket = new FireworkRocketEntity(ent.getLevel(), stack == null ? new ItemStack(item) : stack, ent.x(), ent.y(), ent.z(), true);
+						FireworkRocketEntity rocket = new FireworkRocketEntity(ent.getLevel(), stack == null || stack.isEmpty() ? new ItemStack(item) : stack, ent.x(), ent.y(), ent.z(), true);
 						rocket.setDeltaMovement(Math.random() * 2f - 1f, Math.random() * 2f - 1f, Math.random() * 2f - 1f);
 						ent.getLevel().addFreshEntity(rocket);
 					}
 				} else {
 					for(int i = 0; i < 300; i++) {
-						ItemEntity itement = new ItemEntity(ent.getLevel(), ent.x(), ent.y(), ent.z(), stack == null ? new ItemStack(item) : stack.copy());
+						ItemEntity itement = new ItemEntity(ent.getLevel(), ent.x(), ent.y(), ent.z(), stack == null || stack.isEmpty() ? new ItemStack(item) : stack.copy());
 						itement.setDeltaMovement(Math.random() * 3f - 1.5f, Math.random() * 3f - 1.5f, Math.random() * 3f - 1.5f);
 						ent.getLevel().addFreshEntity(itement);
 					}

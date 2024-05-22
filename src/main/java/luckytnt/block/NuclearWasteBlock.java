@@ -80,7 +80,7 @@ public class NuclearWasteBlock extends FallingBlock {
 	
 	@Override
 	public List<ItemStack> getDrops(BlockState state, LootParams.Builder builder) {
-		return Collections.singletonList(ItemStack.EMPTY);
+		return Collections.emptyList();
 	}
 		
 	@Override

@@ -52,105 +52,100 @@ public class MidasTouchEffect extends MobEffect {
 	@Override
 	public boolean applyEffectTick(LivingEntity entity, int amplifier) {
 		Level level = entity.level();
-		if(!level.isClientSide) {
-
-			BlockHitResult result = level.clip(new ClipContext(entity.getPosition(1), entity.getPosition(1).add(0, -1, 0), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
-			if(result != null) {
-				BlockState state = level.getBlockState(result.getBlockPos());
-				if(state.getBlock().getExplosionResistance() < 100 && !state.isAir()) {
-					level.setBlock(result.getBlockPos(), Blocks.GOLD_BLOCK.defaultBlockState(), 3);
-				}
+		BlockHitResult result = level.clip(new ClipContext(entity.getPosition(1), entity.getPosition(1).add(0, -1, 0), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
+		if(result != null) {
+			BlockState state = level.getBlockState(result.getBlockPos());
+			if(state.getBlock().getExplosionResistance() < 100 && !state.isAir()) {
+				level.setBlock(result.getBlockPos(), Blocks.GOLD_BLOCK.defaultBlockState(), 3);
 			}
-			
-			result = level.clip(new ClipContext(entity.getPosition(1).add(0, entity.getEyeHeight(), 0), entity.getPosition(1).add(0, entity.getEyeHeight(), 0).add(entity.getViewVector(1).scale(5)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
-			if(result != null) {
-				BlockState state = level.getBlockState(result.getBlockPos());
-				if(state.getBlock().getExplosionResistance() < 100 && !state.isAir()) {
-					level.setBlock(result.getBlockPos(), Blocks.GOLD_BLOCK.defaultBlockState(), 3);
-				}
-			}
-			if(entity.getMainHandItem() != ItemStack.EMPTY) {
-				Item item = entity.getMainHandItem().getItem();
-				if(item instanceof SwordItem && item != Items.GOLDEN_SWORD) {
-					entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_SWORD));
-				}
-				else if(item instanceof ShovelItem && item != Items.GOLDEN_SHOVEL) {
-					entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_SHOVEL));
-				}
-				else if(item instanceof PickaxeItem && item != Items.GOLDEN_PICKAXE) {
-					entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_PICKAXE));
-				}
-				else if(item instanceof AxeItem && item != Items.GOLDEN_AXE) {
-					entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_AXE));
-				}
-				else if(item instanceof HoeItem && item != Items.GOLDEN_HOE) {
-					entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_HOE));
-				}
-				else if(item == Items.APPLE) {
-					entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_APPLE, entity.getMainHandItem().getCount()));					
-				}
-				else if(item == Items.CARROT) {
-					entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_CARROT, entity.getMainHandItem().getCount()));		
-				}
-				else if(item == Items.MELON_SLICE) {
-					entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GLISTERING_MELON_SLICE, entity.getMainHandItem().getCount()));					
-				}
-				else if(item instanceof BlockItem && item != Items.GOLD_BLOCK){
-					entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLD_BLOCK, entity.getMainHandItem().getCount()));										
-				}
-				else if(!(item instanceof BlockItem) && !(item instanceof TieredItem) && item != Items.GOLDEN_APPLE && item != Items.GOLDEN_CARROT && item != Items.GLISTERING_MELON_SLICE){
-					entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLD_INGOT, entity.getMainHandItem().getCount()));										
-				}
-			}
-			if(entity.getOffhandItem() != ItemStack.EMPTY) {
-				Item item = entity.getOffhandItem().getItem();
-				if(item instanceof SwordItem && item != Items.GOLDEN_SWORD) {
-					entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_SWORD));
-				}
-				else if(item instanceof ShovelItem && item != Items.GOLDEN_SHOVEL) {
-					entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_SHOVEL));
-				}
-				else if(item instanceof PickaxeItem && item != Items.GOLDEN_PICKAXE) {
-					entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_PICKAXE));
-				}
-				else if(item instanceof AxeItem && item != Items.GOLDEN_AXE) {
-					entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_AXE));
-				}
-				else if(item instanceof HoeItem && item != Items.GOLDEN_HOE) {
-					entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_HOE));
-				}
-				else if(item == Items.APPLE) {
-					entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_APPLE, entity.getOffhandItem().getCount()));					
-				}
-				else if(item == Items.CARROT) {
-					entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_CARROT, entity.getOffhandItem().getCount()));		
-				}
-				else if(item == Items.MELON_SLICE) {
-					entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GLISTERING_MELON_SLICE, entity.getOffhandItem().getCount()));					
-				}
-				else if(item instanceof BlockItem && item != Items.GOLD_BLOCK){
-					entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLD_BLOCK, entity.getOffhandItem().getCount()));										
-				}
-				else if(!(item instanceof BlockItem) && !(item instanceof TieredItem) && item != Items.GOLDEN_APPLE && item != Items.GOLDEN_CARROT && item != Items.GLISTERING_MELON_SLICE){
-					entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLD_INGOT, entity.getOffhandItem().getCount()));										
-				}
-			}
-			if(entity.getItemBySlot(EquipmentSlot.HEAD) != ItemStack.EMPTY && entity.getItemBySlot(EquipmentSlot.HEAD).getItem() != Items.GOLDEN_HELMET) {
-				entity.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
-			}
-			if(entity.getItemBySlot(EquipmentSlot.CHEST) != ItemStack.EMPTY && entity.getItemBySlot(EquipmentSlot.HEAD).getItem() != Items.GOLDEN_CHESTPLATE) {
-				entity.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
-			}
-			if(entity.getItemBySlot(EquipmentSlot.LEGS) != ItemStack.EMPTY && entity.getItemBySlot(EquipmentSlot.HEAD).getItem() != Items.GOLDEN_LEGGINGS) {
-				entity.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.GOLDEN_LEGGINGS));
-			}
-			if(entity.getItemBySlot(EquipmentSlot.FEET) != ItemStack.EMPTY && entity.getItemBySlot(EquipmentSlot.HEAD).getItem() != Items.GOLDEN_BOOTS) {
-				entity.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.GOLDEN_BOOTS));
-			}
-			
-			return true;
-		} else {
-			return false;
 		}
+			
+		result = level.clip(new ClipContext(entity.getPosition(1).add(0, entity.getEyeHeight(), 0), entity.getPosition(1).add(0, entity.getEyeHeight(), 0).add(entity.getViewVector(1).scale(5)), ClipContext.Block.COLLIDER, ClipContext.Fluid.NONE, entity));
+		if(result != null) {
+			BlockState state = level.getBlockState(result.getBlockPos());
+			if(state.getBlock().getExplosionResistance() < 100 && !state.isAir()) {
+				level.setBlock(result.getBlockPos(), Blocks.GOLD_BLOCK.defaultBlockState(), 3);
+			}
+		}
+		if(!entity.getMainHandItem().isEmpty()) {
+			Item item = entity.getMainHandItem().getItem();
+			if(item instanceof SwordItem && item != Items.GOLDEN_SWORD) {
+				entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_SWORD));
+			}
+			else if(item instanceof ShovelItem && item != Items.GOLDEN_SHOVEL) {
+				entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_SHOVEL));
+			}
+			else if(item instanceof PickaxeItem && item != Items.GOLDEN_PICKAXE) {
+				entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_PICKAXE));
+			}
+			else if(item instanceof AxeItem && item != Items.GOLDEN_AXE) {
+				entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_AXE));
+			}
+			else if(item instanceof HoeItem && item != Items.GOLDEN_HOE) {
+				entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_HOE));
+			}
+			else if(item == Items.APPLE) {
+				entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_APPLE, entity.getMainHandItem().getCount()));					
+			}
+			else if(item == Items.CARROT) {
+				entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLDEN_CARROT, entity.getMainHandItem().getCount()));		
+			}
+			else if(item == Items.MELON_SLICE) {
+				entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GLISTERING_MELON_SLICE, entity.getMainHandItem().getCount()));					
+			}
+			else if(item instanceof BlockItem && item != Items.GOLD_BLOCK){
+				entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLD_BLOCK, entity.getMainHandItem().getCount()));										
+			}
+			else if(!(item instanceof BlockItem) && !(item instanceof TieredItem) && item != Items.GOLDEN_APPLE && item != Items.GOLDEN_CARROT && item != Items.GLISTERING_MELON_SLICE){
+				entity.setItemInHand(InteractionHand.MAIN_HAND, new ItemStack(Items.GOLD_INGOT, entity.getMainHandItem().getCount()));										
+			}
+		}
+		if(!entity.getOffhandItem().isEmpty()) {
+			Item item = entity.getOffhandItem().getItem();
+			if(item instanceof SwordItem && item != Items.GOLDEN_SWORD) {
+					entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_SWORD));
+			}
+			else if(item instanceof ShovelItem && item != Items.GOLDEN_SHOVEL) {
+				entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_SHOVEL));
+			}
+			else if(item instanceof PickaxeItem && item != Items.GOLDEN_PICKAXE) {
+				entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_PICKAXE));
+			}
+			else if(item instanceof AxeItem && item != Items.GOLDEN_AXE) {
+				entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_AXE));
+			}
+			else if(item instanceof HoeItem && item != Items.GOLDEN_HOE) {
+				entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_HOE));
+			}
+			else if(item == Items.APPLE) {
+				entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_APPLE, entity.getOffhandItem().getCount()));					
+			}
+			else if(item == Items.CARROT) {
+				entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLDEN_CARROT, entity.getOffhandItem().getCount()));		
+			}
+			else if(item == Items.MELON_SLICE) {
+				entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GLISTERING_MELON_SLICE, entity.getOffhandItem().getCount()));					
+			}
+			else if(item instanceof BlockItem && item != Items.GOLD_BLOCK){
+				entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLD_BLOCK, entity.getOffhandItem().getCount()));										
+			}
+			else if(!(item instanceof BlockItem) && !(item instanceof TieredItem) && item != Items.GOLDEN_APPLE && item != Items.GOLDEN_CARROT && item != Items.GLISTERING_MELON_SLICE){
+				entity.setItemInHand(InteractionHand.OFF_HAND, new ItemStack(Items.GOLD_INGOT, entity.getOffhandItem().getCount()));										
+			}
+		}
+		if(!entity.getItemBySlot(EquipmentSlot.HEAD).isEmpty() && entity.getItemBySlot(EquipmentSlot.HEAD).getItem() != Items.GOLDEN_HELMET) {
+			entity.setItemSlot(EquipmentSlot.HEAD, new ItemStack(Items.GOLDEN_HELMET));
+		}
+		if(!entity.getItemBySlot(EquipmentSlot.CHEST).isEmpty() && entity.getItemBySlot(EquipmentSlot.HEAD).getItem() != Items.GOLDEN_CHESTPLATE) {
+			entity.setItemSlot(EquipmentSlot.CHEST, new ItemStack(Items.GOLDEN_CHESTPLATE));
+		}
+		if(!entity.getItemBySlot(EquipmentSlot.LEGS).isEmpty() && entity.getItemBySlot(EquipmentSlot.HEAD).getItem() != Items.GOLDEN_LEGGINGS) {
+			entity.setItemSlot(EquipmentSlot.LEGS, new ItemStack(Items.GOLDEN_LEGGINGS));
+		}
+		if(!entity.getItemBySlot(EquipmentSlot.FEET).isEmpty() && entity.getItemBySlot(EquipmentSlot.HEAD).getItem() != Items.GOLDEN_BOOTS) {
+			entity.setItemSlot(EquipmentSlot.FEET, new ItemStack(Items.GOLDEN_BOOTS));
+		}
+			
+		return true;
 	}
 }

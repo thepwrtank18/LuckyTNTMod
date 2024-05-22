@@ -69,8 +69,8 @@ public class ItemFireworkBlock extends LTNTBlock implements EntityBlock {
 	@SuppressWarnings("deprecation")
 	@Override
 	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
-		Item item = stack.getItem();
-		if(stack != ItemStack.EMPTY && item != Items.FLINT_AND_STEEL && level.getBlockEntity(pos) != null && level.getBlockEntity(pos) instanceof ItemFireworkBlockEntity block) {
+		Item item = stack == null || stack.isEmpty() ? null : stack.getItem();
+		if(stack != null && !stack.isEmpty() && item != Items.FLINT_AND_STEEL && level.getBlockEntity(pos) != null && level.getBlockEntity(pos) instanceof ItemFireworkBlockEntity block) {
 			CustomData data = CustomData.EMPTY;
 	        
 	        if(!block.components().has(DataComponents.BLOCK_ENTITY_DATA)) {

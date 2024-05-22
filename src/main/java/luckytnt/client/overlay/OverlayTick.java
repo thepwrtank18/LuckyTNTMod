@@ -12,6 +12,7 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.event.CustomizeGuiOverlayEvent;
 import net.minecraftforge.client.event.ScreenEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -25,11 +26,11 @@ public class OverlayTick {
 	@SuppressWarnings({ "resource" })
 	@OnlyIn(Dist.CLIENT)
 	@SubscribeEvent(priority = EventPriority.HIGH)
-	public static void onOverlayRender(ScreenEvent.Render.Post event) {
+	public static void onOverlayRender(CustomizeGuiOverlayEvent event) {
 		if(Minecraft.getInstance().player != null) {
 			Player player = Minecraft.getInstance().player;
-			int w = event.getGuiGraphics().guiWidth();
-			int h = event.getGuiGraphics().guiHeight();
+			int w = event.getWindow().getGuiScaledWidth();
+			int h = event.getWindow().getGuiScaledHeight();
 			RenderSystem.disableDepthTest();
 			RenderSystem.depthMask(false);
 			RenderSystem.enableBlend();
