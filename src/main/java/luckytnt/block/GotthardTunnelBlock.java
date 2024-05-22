@@ -12,7 +12,7 @@ import net.minecraft.sounds.SoundSource;
 import net.minecraft.stats.Stats;
 import net.minecraft.util.Mth;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
+import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
@@ -75,7 +75,7 @@ public class GotthardTunnelBlock extends LTNTBlock {
 		throw new NullPointerException("No TNT entity present. Make sure it is registered before the block is registered");
 	}
 
-	public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
+	public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand, BlockHitResult result) {
 		ItemStack itemstack = player.getItemInHand(hand);
 		if(itemstack.is(Items.FLINT_AND_STEEL) || itemstack.is(Items.FIRE_CHARGE)) {
 			onCaughtFire(state, level, pos, result.getDirection(), player);
@@ -89,7 +89,7 @@ public class GotthardTunnelBlock extends LTNTBlock {
 			}
 
 			player.awardStat(Stats.ITEM_USED.get(item));
-			return InteractionResult.sidedSuccess(level.isClientSide);
+			return ItemInteractionResult.sidedSuccess(level.isClientSide);
 		} else if(itemstack.is(ItemRegistry.CONFIGURATION_WAND.get())) {
 			if(state.hasProperty(STREETS)) {
     			if(state.getValue(STREETS)) {
@@ -98,9 +98,9 @@ public class GotthardTunnelBlock extends LTNTBlock {
     				level.setBlock(pos, state.setValue(STREETS, true), 3);
     			}
     		}
-    		return InteractionResult.SUCCESS;
+    		return ItemInteractionResult.SUCCESS;
 		} else {
-			return InteractionResult.PASS;
+			return ItemInteractionResult.FAIL;
 		}
 	}
 }
