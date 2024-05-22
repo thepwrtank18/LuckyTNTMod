@@ -3,6 +3,7 @@ package luckytnt;
 import java.util.function.BiFunction;
 
 import luckytnt.client.gui.ConfigScreen;
+import luckytnt.client.overlay.OverlayTick;
 import luckytnt.config.LuckyTNTConfigs;
 import luckytnt.network.PacketHandler;
 import luckytnt.registry.SoundRegistry;
@@ -20,6 +21,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
@@ -40,6 +42,7 @@ public class LuckyTNTMod
     public LuckyTNTMod()
     {
         FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::clientSetup);
     	IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         SoundRegistry.SOUNDS.register(bus);
     	entityRegistry.register(bus);
@@ -61,5 +64,9 @@ public class LuckyTNTMod
     private void setup(final FMLCommonSetupEvent event)
     {
     	PacketHandler.register();
+    }
+    
+    private void clientSetup(final FMLClientSetupEvent event) {
+    	OverlayTick.onGameStart();
     }
 }
