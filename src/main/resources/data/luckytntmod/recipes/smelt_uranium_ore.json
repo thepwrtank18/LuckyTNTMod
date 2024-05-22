@@ -5,5 +5,7 @@
   "ingredient": {
     "item": "luckytntmod:uranium_ore"
   },
-  "result": "luckytntmod:uranium_ingot"
+  "result": {
+  	"id": "luckytntmod:uranium_ingot"
+  }
 }

@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "item": "luckytntmod:say_goodbye",
+    "id": "luckytntmod:say_goodbye",
     "count": 1
   }
 }

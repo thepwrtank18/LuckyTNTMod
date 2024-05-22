@@ -23,7 +23,7 @@
     }
   },
   "result": {
-    "item": "luckytntmod:present_drop",
+    "id": "luckytntmod:present_drop",
     "count": 1
   }
 }

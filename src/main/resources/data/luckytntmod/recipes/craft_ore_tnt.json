@@ -14,7 +14,7 @@
     }
   },
   "result": {
-    "item": "luckytntmod:ore_tnt",
+    "id": "luckytntmod:ore_tnt",
     "count": 1
   }
 }

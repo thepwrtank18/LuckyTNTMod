@@ -20,7 +20,7 @@
     }
   },
   "result": {
-    "item": "luckytntmod:sensor_tnt",
+    "id": "luckytntmod:sensor_tnt",
     "count": 1
   }
 }
