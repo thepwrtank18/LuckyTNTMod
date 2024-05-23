@@ -31,6 +31,8 @@ public class LeapingTNTEffect extends PrimedTNTEffect{
 			((Entity)entity).getPersistentData().putInt("bounces", ((Entity)entity).getPersistentData().getInt("bounces") + 1);
 			((Entity)entity).setDeltaMovement(Math.random() * 1.5D - Math.random() * 1.5D, Math.random() * 2f, Math.random() * 1.5D - Math.random() * 1.5D);
 			entity.getLevel().playSound(null, entity.x(), entity.y(), entity.z(), SoundEvents.SLIME_JUMP, SoundSource.MASTER, 1, 1);
+			entity.getLevel().playSound((Entity)entity, toBlockPos(entity.getPos()), SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4f, (1f + (entity.getLevel().getRandom().nextFloat() - entity.getLevel().getRandom().nextFloat()) * 0.2f) * 0.7f);
+			
 			if(((Entity)entity).getPersistentData().getInt("bounces") >= 24) {
 				if(entity.getLevel() instanceof ServerLevel) {
 					serverExplosion(entity);
