@@ -15,7 +15,7 @@ public class MimicTNTEffect extends PrimedTNTEffect {
 	public void explosionTick(IExplosiveEntity ent) {
 		((Entity) ent).setDeltaMovement(0, 0, 0);
 		((Entity) ent).setPos(((Entity) ent).xOld, ((Entity) ent).yOld, ((Entity) ent).zOld);
-		if (ent.level().getNearestPlayer((Entity) ent, 5) != null && ent.level().getNearestPlayer((Entity) ent, 5) != ent.owner() && !ent.level().isClientSide()) {
+		if (ent.level().getNearestPlayer((Entity) ent, 5) != null && ent.level().getNearestPlayer((Entity) ent, 5) != ent.owner()) {
 			ent.level().playSound((Entity)ent, toBlockPos(ent.getPos()), SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4f, (1f + (ent.level().getRandom().nextFloat() - ent.level().getRandom().nextFloat()) * 0.2f) * 0.7f);
 			if(!ent.level().isClientSide()) {
 				serverExplosion(ent);

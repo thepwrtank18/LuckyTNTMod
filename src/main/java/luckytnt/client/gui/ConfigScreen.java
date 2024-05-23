@@ -42,12 +42,6 @@ public class ConfigScreen extends Screen{
 		super(Component.translatable("luckytntmod.config.title"));
 	}
 	
-	//addRenderableWidget(light_engine_speed_slider = new ForgeSlider(20, 160, 200, 20, MutableComponent.create(new LiteralContents("")), MutableComponent.create(new LiteralContents("")), 5, 5000, LuckyTNTConfigValues.LIGHT_ENGINE_SPEED.get(), true));	
-	//light_engine_speed_slider.setTooltip(Tooltip.create(Component.translatable("luckytntmod.config.light_engine_tooltip")));
-	//addRenderableWidget(new Button.Builder(Component.translatable("luckytntmod.config.reset"), button -> resetIntValue(LuckyTNTConfigValues.LIGHT_ENGINE_SPEED, 100, light_engine_speed_slider)).bounds(width - 220, 160, 200, 20).build());
-	
-	//drawCenteredString(stack, font, Component.translatable("luckytntmod.config.light_engine"), width / 2, 166, 0xFFFFFF);
-	
 	@Override
 	public void init() {
 		try {
