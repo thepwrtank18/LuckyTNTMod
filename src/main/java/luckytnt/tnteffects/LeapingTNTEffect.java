@@ -4,6 +4,7 @@ import luckytnt.registry.BlockRegistry;
 import luckytntlib.util.IExplosiveEntity;
 import luckytntlib.util.explosions.ImprovedExplosion;
 import luckytntlib.util.tnteffects.PrimedTNTEffect;
+import net.minecraft.core.BlockPos;
 import net.minecraft.server.level.ServerLevel;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -31,6 +32,8 @@ public class LeapingTNTEffect extends PrimedTNTEffect{
 			((Entity)entity).getPersistentData().putInt("bounces", ((Entity)entity).getPersistentData().getInt("bounces") + 1);
 			((Entity)entity).setDeltaMovement(Math.random() * 1.5D - Math.random() * 1.5D, Math.random() * 2f, Math.random() * 1.5D - Math.random() * 1.5D);
 			entity.level().playSound(null, entity.x(), entity.y(), entity.z(), SoundEvents.SLIME_JUMP, SoundSource.MASTER, 1, 1);
+			entity.level().playSound((Entity)entity, new BlockPos(entity.getPos()), SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4f, (1f + (entity.level().getRandom().nextFloat() - entity.level().getRandom().nextFloat()) * 0.2f) * 0.7f);
+			
 			if(((Entity)entity).getPersistentData().getInt("bounces") >= 24) {
 				if(entity.level() instanceof ServerLevel) {
 					serverExplosion(entity);
