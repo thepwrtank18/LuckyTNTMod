@@ -20,7 +20,7 @@ public class LightningDynamiteEffect extends PrimedTNTEffect{
 	public void explosionTick(IExplosiveEntity entity) {
 		double x = entity.getPos().x;
 		double z = entity.getPos().z;
-		if (entity.getLevel() instanceof ServerLevel S_Level) {
+		if (entity.getLevel() instanceof ServerLevel) {
 			double offX = Math.random() * 20 - 10;
 			double offZ = Math.random() * 20 - 10;
 			for (double offY = 320; offY > -64; offY--) {
