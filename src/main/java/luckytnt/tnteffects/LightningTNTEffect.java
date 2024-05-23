@@ -18,7 +18,7 @@ public class LightningTNTEffect extends PrimedTNTEffect{
 		double x = entity.getPos().x;
 		double z = entity.getPos().z;
 		if(entity.getTNTFuse() < 120) {
-			if(entity.getLevel() instanceof ServerLevel S_Level) {
+			if(entity.getLevel() instanceof ServerLevel) {
 				double offX = Math.random() * 40 - 20;
 				double offZ = Math.random() * 40 - 20;
 				for(int offY = 320; offY > -64; offY--) {

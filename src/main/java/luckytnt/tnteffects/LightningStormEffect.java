@@ -23,7 +23,7 @@ public class LightningStormEffect extends PrimedTNTEffect {
 	public void explosionTick(IExplosiveEntity ent) {
 		if(ent.getTNTFuse() < 120) {
 			for(int count = 0; count < 10; count++) {
-				if(ent.getLevel() instanceof ServerLevel S_Level) {
+				if(ent.getLevel() instanceof ServerLevel) {
 					double offX = Math.random() * 150D - 75D;
 					double offZ = Math.random() * 150D - 75D;
 					for(int offY = ent.getLevel().getMaxBuildHeight(); offY > ent.getLevel().getMinBuildHeight(); offY--) {
