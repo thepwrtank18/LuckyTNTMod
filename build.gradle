@@ -88,9 +88,9 @@ repositories {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.19.4-45.0.64'
+    minecraft 'net.minecraftforge:forge:1.19.4-45.2.15'
 
-    implementation fg.deobf("com.github.SlimingHD:LuckyTNTLib:1.19.4-45.0.64.5")
+    implementation fg.deobf("com.github.SlimingHD:LuckyTNTLib:1.19.4-45.2.15.0")
 }
 
 jar {

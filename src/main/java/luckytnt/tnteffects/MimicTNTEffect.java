@@ -4,6 +4,8 @@ import luckytnt.registry.BlockRegistry;
 import luckytntlib.util.IExplosiveEntity;
 import luckytntlib.util.explosions.ImprovedExplosion;
 import luckytntlib.util.tnteffects.PrimedTNTEffect;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.state.BlockState;
 
@@ -14,8 +16,11 @@ public class MimicTNTEffect extends PrimedTNTEffect {
 		((Entity) ent).setDeltaMovement(0, 0, 0);
 		((Entity) ent).setPos(((Entity) ent).xOld, ((Entity) ent).yOld, ((Entity) ent).zOld);
 		if (ent.level().getNearestPlayer((Entity) ent, 5) != null && ent.level().getNearestPlayer((Entity) ent, 5) != ent.owner() && !ent.level().isClientSide()) {
-			serverExplosion(ent);
-			ent.destroy();
+			ent.level().playSound((Entity)ent, toBlockPos(ent.getPos()), SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4f, (1f + (ent.level().getRandom().nextFloat() - ent.level().getRandom().nextFloat()) * 0.2f) * 0.7f);
+			if(!ent.level().isClientSide()) {
+				serverExplosion(ent);
+				ent.destroy();
+			}
 		}
 	}
 
