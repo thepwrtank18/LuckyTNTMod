@@ -30,7 +30,7 @@ public class TsarBombaBombEffect extends PrimedTNTEffect implements NuclearBombL
 
 	@Override
 	public void serverExplosion(IExplosiveEntity entity) {
-		if(entity.level() instanceof ServerLevel sl) {
+		if(entity.level() instanceof ServerLevel) {
 			PacketHandler.CHANNEL.send(PacketDistributor.TRACKING_ENTITY.with(() -> (Entity)entity), new ClientboundHydrogenBombPacket(((Entity)entity).getId()));
 		}
 		

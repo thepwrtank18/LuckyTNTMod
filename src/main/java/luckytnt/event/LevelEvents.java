@@ -89,7 +89,7 @@ public class LevelEvents {
 							level.addFreshEntity(ent);
 						}
 						if(Math.random() < 0.1f * LuckyTNTConfigValues.AVERAGE_DIASTER_INTENSITY.get()) {
-							if(level instanceof ServerLevel S_Level) {
+							if(level instanceof ServerLevel) {
 								double offX = Math.random() * 200 - Math.random() * 200;
 								double offZ = Math.random() * 200 - Math.random() * 200;
 								for(double offY = 320; offY > -64; offY--) {
