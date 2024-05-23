@@ -140,11 +140,11 @@ public class ConfigScreen extends Screen{
 			value = true;
 		}
 		config.set(value);
-		button.setMessage(value ? Component.translatable("luckytntmod.config.true") : Component.translatable("luckytntmod.config.false"));
+		button.setMessage(value ? CommonComponents.OPTION_ON : CommonComponents.OPTION_OFF);
 	}
 	
 	public void resetBooleanValue(ForgeConfigSpec.BooleanValue config, boolean defaultValue, Button button) {
 		config.set(defaultValue);
-		button.setMessage(defaultValue ? Component.translatable("luckytntmod.config.true") : Component.translatable("luckytntmod.config.false"));
+		button.setMessage(defaultValue ? CommonComponents.OPTION_ON : CommonComponents.OPTION_OFF);
 	}
 }
