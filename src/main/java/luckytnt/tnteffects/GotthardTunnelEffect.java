@@ -116,7 +116,6 @@ public class GotthardTunnelEffect extends PrimedTNTEffect {
 	public BlockState getBlockState(IExplosiveEntity ent) {
 		Direction dir = Direction.NORTH;
 		if(!ent.getPersistentData().getString("direction").equals("")) {
-			System.out.println(ent.getPersistentData().getString("direction"));
 			dir = Direction.byName(ent.getPersistentData().getString("direction"));
 		} 
 		return BlockRegistry.GOTTHARD_TUNNEL.get().defaultBlockState().setValue(GotthardTunnelBlock.STREETS, ent.getPersistentData().getBoolean("streets")).setValue(GotthardTunnelBlock.FACING, dir);
