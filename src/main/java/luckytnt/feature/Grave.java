@@ -104,14 +104,14 @@ public class Grave extends Feature<NoneFeatureConfiguration>{
 			ChestBlockEntity tile1 = (ChestBlockEntity)level.getBlockEntity(pos.offset(0, -1, 0));
 			ChestBlockEntity tile2 = (ChestBlockEntity)level.getBlockEntity(pos.offset(1, -1, 0));
 			if(d < 0.45D) {
-				tile1.setLootTable(LootTableRegistry.GRAVE_LOOT_1, random.nextLong());
-				tile2.setLootTable(LootTableRegistry.GRAVE_LOOT_1, random.nextLong());
+				tile1.setLootTable(LootTableRegistry.GRAVE_LOOT_1.get(), random.nextLong());
+				tile2.setLootTable(LootTableRegistry.GRAVE_LOOT_1.get(), random.nextLong());
 			} else if(d >= 0.45D && d < 0.9D) {
-				tile1.setLootTable(LootTableRegistry.GRAVE_LOOT_2, random.nextLong());
-				tile2.setLootTable(LootTableRegistry.GRAVE_LOOT_2, random.nextLong());
+				tile1.setLootTable(LootTableRegistry.GRAVE_LOOT_2.get(), random.nextLong());
+				tile2.setLootTable(LootTableRegistry.GRAVE_LOOT_2.get(), random.nextLong());
 			} else if(d >= 0.9D) {
-				tile1.setLootTable(LootTableRegistry.GRAVE_LOOT_RARE, random.nextLong());
-				tile2.setLootTable(LootTableRegistry.GRAVE_LOOT_RARE, random.nextLong());
+				tile1.setLootTable(LootTableRegistry.GRAVE_LOOT_RARE.get(), random.nextLong());
+				tile2.setLootTable(LootTableRegistry.GRAVE_LOOT_RARE.get(), random.nextLong());
 			}
 		}
 		
@@ -120,14 +120,14 @@ public class Grave extends Feature<NoneFeatureConfiguration>{
 			ChestBlockEntity tile1 = (ChestBlockEntity)level.getBlockEntity(pos.offset(0, -1, 1));
 			ChestBlockEntity tile2 = (ChestBlockEntity)level.getBlockEntity(pos.offset(1, -1, 1));
 			if(d < 0.45D) {
-				tile1.setLootTable(LootTableRegistry.GRAVE_LOOT_1, random.nextLong());
-				tile2.setLootTable(LootTableRegistry.GRAVE_LOOT_1, random.nextLong());
+				tile1.setLootTable(LootTableRegistry.GRAVE_LOOT_1.get(), random.nextLong());
+				tile2.setLootTable(LootTableRegistry.GRAVE_LOOT_1.get(), random.nextLong());
 			} else if(d >= 0.45D && d < 0.9D) {
-				tile1.setLootTable(LootTableRegistry.GRAVE_LOOT_2, random.nextLong());
-				tile2.setLootTable(LootTableRegistry.GRAVE_LOOT_2, random.nextLong());
+				tile1.setLootTable(LootTableRegistry.GRAVE_LOOT_2.get(), random.nextLong());
+				tile2.setLootTable(LootTableRegistry.GRAVE_LOOT_2.get(), random.nextLong());
 			} else if(d >= 0.9D) {
-				tile1.setLootTable(LootTableRegistry.GRAVE_LOOT_RARE, random.nextLong());
-				tile2.setLootTable(LootTableRegistry.GRAVE_LOOT_RARE, random.nextLong());
+				tile1.setLootTable(LootTableRegistry.GRAVE_LOOT_RARE.get(), random.nextLong());
+				tile2.setLootTable(LootTableRegistry.GRAVE_LOOT_RARE.get(), random.nextLong());
 			}
 		}
 		

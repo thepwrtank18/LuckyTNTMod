@@ -33,7 +33,7 @@ public class IcyTNTEffect extends PrimedTNTEffect {
 			@Override
 			public void doBlockExplosion(Level level, BlockPos pos, BlockState state, double distance) {
 				if (distance <= 40 && state.getExplosionResistance(level, pos, ImprovedExplosion.dummyExplosion(ent.getLevel())) <= 100) {
-					if(WastelandTNTEffect.GRASS.contains(state.getBlock()) || state.is(BlockTags.LEAVES) || state.is(BlockTags.SAND)) {
+					if(WastelandTNTEffect.GRASS.get().contains(state.getBlock()) || state.is(BlockTags.LEAVES) || state.is(BlockTags.SAND)) {
 						state.getBlock().onBlockExploded(state, level, pos, ImprovedExplosion.dummyExplosion(ent.getLevel())); 
 						level.setBlock(pos, Blocks.BLUE_ICE.defaultBlockState(), 3);
 					} if(state.getBlock() instanceof LiquidBlock) {
