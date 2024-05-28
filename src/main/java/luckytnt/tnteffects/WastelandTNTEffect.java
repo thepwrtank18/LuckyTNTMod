@@ -1,7 +1,6 @@
 package luckytnt.tnteffects;
 
 import java.util.List;
-import java.util.function.Supplier;
 
 import luckytnt.registry.BlockRegistry;
 import luckytnt.util.Materials;
@@ -22,8 +21,8 @@ import net.minecraftforge.common.IPlantable;
 
 public class WastelandTNTEffect extends PrimedTNTEffect {
 	
-	public static Supplier<List<Block>> GRASS = () -> List.of(Blocks.GRASS_BLOCK, Blocks.PODZOL, Blocks.MYCELIUM, Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS);
-	public static Supplier<List<Block>> DIRT = () -> List.of(Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.ROOTED_DIRT);
+	public static List<Block> GRASS = List.of(Blocks.GRASS_BLOCK, Blocks.PODZOL, Blocks.MYCELIUM, Blocks.MUD, Blocks.MUDDY_MANGROVE_ROOTS);
+	public static List<Block> DIRT = List.of(Blocks.DIRT, Blocks.COARSE_DIRT, Blocks.ROOTED_DIRT);
 
 	@Override
 	public void serverExplosion(IExplosiveEntity ent) {
@@ -71,9 +70,9 @@ public class WastelandTNTEffect extends PrimedTNTEffect {
 										ent.getLevel().setBlock(pos, Blocks.DEAD_BUSH.defaultBlockState(), 3);
 									}
 								}
-								if(GRASS.get().contains(state.getBlock())) {
+								if(GRASS.contains(state.getBlock())) {
 									ent.getLevel().setBlock(pos, Blocks.DIRT.defaultBlockState(), 3);
-								} else if(DIRT.get().contains(state.getBlock())) {
+								} else if(DIRT.contains(state.getBlock())) {
 									ent.getLevel().setBlock(pos, Blocks.SAND.defaultBlockState(), 3);
 								} else if(state.is(BlockTags.WOOL)) {
 									ent.getLevel().setBlock(pos, Blocks.WHITE_WOOL.defaultBlockState(), 3);

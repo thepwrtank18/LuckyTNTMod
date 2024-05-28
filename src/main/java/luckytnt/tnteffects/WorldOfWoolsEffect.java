@@ -3,7 +3,6 @@ package luckytnt.tnteffects;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-import java.util.function.Supplier;
 
 import org.joml.Math;
 import org.joml.Vector3f;
@@ -36,22 +35,22 @@ import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.shapes.CollisionContext;
 
 public class WorldOfWoolsEffect extends PrimedTNTEffect {
-	public static Supplier<List<MapColor>> WHITE = () -> List.of(MapColor.SNOW, MapColor.QUARTZ, MapColor.TERRACOTTA_WHITE, MapColor.WOOL);
-	public static Supplier<List<MapColor>> LIGHT_GRAY = () -> List.of(MapColor.METAL, MapColor.CLAY, MapColor.COLOR_LIGHT_GRAY);
-	public static Supplier<List<MapColor>> GRAY = () -> List.of(MapColor.STONE, MapColor.COLOR_GRAY, MapColor.TERRACOTTA_CYAN, MapColor.DEEPSLATE);
-	public static Supplier<List<MapColor>> BLACK = () -> List.of(MapColor.COLOR_BLACK);
-	public static Supplier<List<MapColor>> BROWN = () -> List.of(MapColor.DIRT, MapColor.WOOD, MapColor.COLOR_BROWN, MapColor.PODZOL, MapColor.TERRACOTTA_BLACK, MapColor.TERRACOTTA_BROWN, MapColor.TERRACOTTA_GRAY, MapColor.TERRACOTTA_LIGHT_GRAY, MapColor.RAW_IRON);
-	public static Supplier<List<MapColor>> RED = () -> List.of(MapColor.FIRE, MapColor.COLOR_RED, MapColor.NETHER, MapColor.TERRACOTTA_RED, MapColor.CRIMSON_HYPHAE, MapColor.CRIMSON_NYLIUM, MapColor.TERRACOTTA_PINK);
-	public static Supplier<List<MapColor>> ORANGE = () -> List.of(MapColor.COLOR_ORANGE, MapColor.TERRACOTTA_ORANGE);
-	public static Supplier<List<MapColor>> YELLOW = () -> List.of(MapColor.SAND, MapColor.COLOR_YELLOW, MapColor.GOLD, MapColor.TERRACOTTA_YELLOW);
-	public static Supplier<List<MapColor>> LIME = () -> List.of(MapColor.GRASS, MapColor.COLOR_LIGHT_GREEN, MapColor.EMERALD, MapColor.GLOW_LICHEN);
-	public static Supplier<List<MapColor>> GREEN = () -> List.of(MapColor.PLANT, MapColor.COLOR_GREEN, MapColor.TERRACOTTA_LIGHT_GREEN, MapColor.TERRACOTTA_GREEN);
-	public static Supplier<List<MapColor>> CYAN = () -> List.of(MapColor.COLOR_CYAN, MapColor.WARPED_NYLIUM, MapColor.WARPED_STEM, MapColor.WARPED_WART_BLOCK);
-	public static Supplier<List<MapColor>> LIGHT_BLUE = () -> List.of(MapColor.ICE, MapColor.COLOR_LIGHT_BLUE, MapColor.DIAMOND);
-	public static Supplier<List<MapColor>> BLUE = () -> List.of(MapColor.WATER, MapColor.COLOR_BLUE, MapColor.LAPIS, MapColor.TERRACOTTA_LIGHT_BLUE);
-	public static Supplier<List<MapColor>> PURPLE = () -> List.of(MapColor.COLOR_PURPLE, MapColor.TERRACOTTA_BLUE, MapColor.WARPED_HYPHAE);
-	public static Supplier<List<MapColor>> MAGENTA = () -> List.of(MapColor.COLOR_MAGENTA, MapColor.TERRACOTTA_MAGENTA, MapColor.TERRACOTTA_PURPLE, MapColor.CRIMSON_STEM);
-	public static Supplier<List<MapColor>> PINK = () -> List.of(MapColor.COLOR_PINK);
+	public static List<MapColor> WHITE = List.of(MapColor.SNOW, MapColor.QUARTZ, MapColor.TERRACOTTA_WHITE, MapColor.WOOL);
+	public static List<MapColor> LIGHT_GRAY = List.of(MapColor.METAL, MapColor.CLAY, MapColor.COLOR_LIGHT_GRAY);
+	public static List<MapColor> GRAY = List.of(MapColor.STONE, MapColor.COLOR_GRAY, MapColor.TERRACOTTA_CYAN, MapColor.DEEPSLATE);
+	public static List<MapColor> BLACK = List.of(MapColor.COLOR_BLACK);
+	public static List<MapColor> BROWN = List.of(MapColor.DIRT, MapColor.WOOD, MapColor.COLOR_BROWN, MapColor.PODZOL, MapColor.TERRACOTTA_BLACK, MapColor.TERRACOTTA_BROWN, MapColor.TERRACOTTA_GRAY, MapColor.TERRACOTTA_LIGHT_GRAY, MapColor.RAW_IRON);
+	public static List<MapColor> RED = List.of(MapColor.FIRE, MapColor.COLOR_RED, MapColor.NETHER, MapColor.TERRACOTTA_RED, MapColor.CRIMSON_HYPHAE, MapColor.CRIMSON_NYLIUM, MapColor.TERRACOTTA_PINK);
+	public static List<MapColor> ORANGE = List.of(MapColor.COLOR_ORANGE, MapColor.TERRACOTTA_ORANGE);
+	public static List<MapColor> YELLOW = List.of(MapColor.SAND, MapColor.COLOR_YELLOW, MapColor.GOLD, MapColor.TERRACOTTA_YELLOW);
+	public static List<MapColor> LIME = List.of(MapColor.GRASS, MapColor.COLOR_LIGHT_GREEN, MapColor.EMERALD, MapColor.GLOW_LICHEN);
+	public static List<MapColor> GREEN = List.of(MapColor.PLANT, MapColor.COLOR_GREEN, MapColor.TERRACOTTA_LIGHT_GREEN, MapColor.TERRACOTTA_GREEN);
+	public static List<MapColor> CYAN = List.of(MapColor.COLOR_CYAN, MapColor.WARPED_NYLIUM, MapColor.WARPED_STEM, MapColor.WARPED_WART_BLOCK);
+	public static List<MapColor> LIGHT_BLUE = List.of(MapColor.ICE, MapColor.COLOR_LIGHT_BLUE, MapColor.DIAMOND);
+	public static List<MapColor> BLUE = List.of(MapColor.WATER, MapColor.COLOR_BLUE, MapColor.LAPIS, MapColor.TERRACOTTA_LIGHT_BLUE);
+	public static List<MapColor> PURPLE = List.of(MapColor.COLOR_PURPLE, MapColor.TERRACOTTA_BLUE, MapColor.WARPED_HYPHAE);
+	public static List<MapColor> MAGENTA = List.of(MapColor.COLOR_MAGENTA, MapColor.TERRACOTTA_MAGENTA, MapColor.TERRACOTTA_PURPLE, MapColor.CRIMSON_STEM);
+	public static List<MapColor> PINK = List.of(MapColor.COLOR_PINK);
 	
 	@Override
 	public void serverExplosion(IExplosiveEntity ent) {
@@ -63,37 +62,37 @@ public class WorldOfWoolsEffect extends PrimedTNTEffect {
 			public void doBlockExplosion(Level level, BlockPos pos, BlockState state, double distance) {
 				MapColor color = state.getMapColor(level, pos);
 				if(color != MapColor.NONE & !state.getCollisionShape(level, pos, CollisionContext.empty()).isEmpty() && state.getExplosionResistance(level, pos, ImprovedExplosion.dummyExplosion(level)) <= 200) {
-					if(WHITE.get().contains(color)) {
+					if(WHITE.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.WHITE_WOOL));
-					} else if(LIGHT_GRAY.get().contains(color)) {
+					} else if(LIGHT_GRAY.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.LIGHT_GRAY_WOOL));
-					} else if(GRAY.get().contains(color)) {
+					} else if(GRAY.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.GRAY_WOOL));
-					} else if(BLACK.get().contains(color)) {
+					} else if(BLACK.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.BLACK_WOOL));
-					} else if(BROWN.get().contains(color)) {
+					} else if(BROWN.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.BROWN_WOOL));
-					} else if(RED.get().contains(color)) {
+					} else if(RED.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.RED_WOOL));
-					} else if(ORANGE.get().contains(color)) {
+					} else if(ORANGE.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.ORANGE_WOOL));
-					} else if(YELLOW.get().contains(color)) {
+					} else if(YELLOW.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.YELLOW_WOOL));
-					} else if(LIME.get().contains(color)) {
+					} else if(LIME.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.LIME_WOOL));
-					} else if(GREEN.get().contains(color)) {
+					} else if(GREEN.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.GREEN_WOOL));
-					} else if(CYAN.get().contains(color)) {
+					} else if(CYAN.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.CYAN_WOOL));
-					} else if(LIGHT_BLUE.get().contains(color)) {
+					} else if(LIGHT_BLUE.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.LIGHT_BLUE_WOOL));
-					} else if(BLUE.get().contains(color)) {
+					} else if(BLUE.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.BLUE_WOOL));
-					} else if(PURPLE.get().contains(color)) {
+					} else if(PURPLE.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.PURPLE_WOOL));
-					} else if(MAGENTA.get().contains(color)) {
+					} else if(MAGENTA.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.MAGENTA_WOOL));
-					} else if(PINK.get().contains(color)) {
+					} else if(PINK.contains(color)) {
 						blocks.add(Pair.of(pos, Blocks.PINK_WOOL));
 					}
 				}
