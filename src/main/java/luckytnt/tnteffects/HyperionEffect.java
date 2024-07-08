@@ -44,7 +44,7 @@ public class HyperionEffect extends PrimedTNTEffect {
 							case 4: string = "giant_birchtree"; break;
 							case 5: string = "giant_jungletree"; break;
 						}
-						StructureTemplate template = ((ServerLevel)entity.getLevel()).getStructureManager().getOrCreate(new ResourceLocation(LuckyTNTMod.MODID, string));
+						StructureTemplate template = ((ServerLevel)entity.getLevel()).getStructureManager().getOrCreate(ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, string));
 						if(template != null) {
 							template.placeInWorld((ServerLevel)entity.getLevel(), pos.offset(-5, 0, -5), pos.offset(-5, 0, -5), new StructurePlaceSettings(), entity.getLevel().random, 3);
 						}

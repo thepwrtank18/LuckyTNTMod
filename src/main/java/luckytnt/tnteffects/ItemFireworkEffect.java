@@ -11,7 +11,6 @@ import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.Entity;
-import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.entity.projectile.Arrow;
@@ -97,21 +96,14 @@ public class ItemFireworkEffect extends PrimedTNTEffect {
 						double x = Math.cos(theta) * radius;
 						double z = Math.sin(theta) * radius;
 						
-						LargeFireball fireball = new LargeFireball(EntityType.FIREBALL, ent.getLevel());
+						LargeFireball fireball = new LargeFireball(ent.getLevel(), ent.owner(), new Vec3((ent.x() + x * 15) - ent.x(), (ent.y() + y * 15) - ent.y(), (ent.z() + z * 15) - ent.z()).normalize().scale(0.5D), 1);
 						fireball.setPos(ent.x() + x * 15, ent.y() + y * 15, ent.z() + z * 15);
-						Vec3 vec = new Vec3(fireball.getX() - ent.x(), fireball.getY() - ent.y(), fireball.getZ() - ent.z()).normalize().scale(0.5D);
-						fireball.xPower = vec.x;
-						fireball.yPower = vec.y;
-						fireball.zPower = vec.z;
 						ent.getLevel().addFreshEntity(fireball);
 					}
 				} else if(item == Items.DRAGON_BREATH) {
 					for(int i = 0; i < 300; i++) {
-						DragonFireball fireball = new DragonFireball(EntityType.DRAGON_FIREBALL, ent.getLevel());
+						DragonFireball fireball = new DragonFireball(ent.getLevel(), ent.owner(), new Vec3(Math.random() - 0.5f, Math.random() - 0.5f, Math.random() - 0.5f));
 						fireball.setPos(ent.getPos());
-						fireball.xPower = Math.random() - 0.5f;
-						fireball.yPower = Math.random() - 0.5f;
-						fireball.zPower = Math.random() - 0.5f;
 						ent.getLevel().addFreshEntity(fireball);
 					}
 				} else if(item instanceof ThrowablePotionItem) {
@@ -124,11 +116,11 @@ public class ItemFireworkEffect extends PrimedTNTEffect {
 				} else if(item instanceof ArrowItem) {
 					for(int count = 0; count < 300; count++) {
 						if(item instanceof SpectralArrowItem) {
-							AbstractArrow arrow = new SpectralArrow(ent.getLevel(), ent.x(), ent.y(), ent.z(), new ItemStack(Items.SPECTRAL_ARROW));
+							AbstractArrow arrow = new SpectralArrow(ent.getLevel(), ent.x(), ent.y(), ent.z(), new ItemStack(Items.SPECTRAL_ARROW), null);
 							arrow.setDeltaMovement(Math.random() * 6f - 3f, Math.random() * 6f - 3f, Math.random() * 6f - 3f);
 							ent.getLevel().addFreshEntity(arrow);
 						} else {
-							Arrow arrow = new Arrow(ent.getLevel(), ent.x(), ent.y(), ent.z(), new ItemStack(Items.ARROW));
+							Arrow arrow = new Arrow(ent.getLevel(), ent.x(), ent.y(), ent.z(), new ItemStack(Items.ARROW), null);
 							PotionContents contents = stack == null || stack.isEmpty() ? new ItemStack(item).getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY) : stack.getOrDefault(DataComponents.POTION_CONTENTS, PotionContents.EMPTY);
 							for(MobEffectInstance effect : contents.getAllEffects()) {
 								arrow.addEffect(effect);

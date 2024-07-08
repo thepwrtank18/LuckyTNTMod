@@ -16,7 +16,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
 
 public class BombModel <T extends Entity> extends EntityModel<T> {
-	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("luckytntmod", "tsa_bomb_model"), "main");
+	public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(ResourceLocation.fromNamespaceAndPath("luckytntmod", "tsa_bomb_model"), "main");
 	private final ModelPart TsarBomb;
 
 	public BombModel(ModelPart root) {
@@ -74,7 +74,7 @@ public class BombModel <T extends Entity> extends EntityModel<T> {
 	}
 
 	@Override
-	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
+	public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, int i) {
 		TsarBomb.render(poseStack, buffer, packedLight, packedOverlay);
 	}
 }

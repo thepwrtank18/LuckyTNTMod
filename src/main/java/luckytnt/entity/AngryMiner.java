@@ -1,6 +1,7 @@
 package luckytnt.entity;
 
 import luckytnt.registry.ItemRegistry;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -52,8 +53,8 @@ public class AngryMiner extends Monster implements RangedAttackMob{
 	}
 	
 	@Override
-	public void dropCustomDeathLoot(DamageSource source, int looting, boolean hit) {
-		super.dropCustomDeathLoot(source, looting, hit);
+	public void dropCustomDeathLoot(ServerLevel level, DamageSource source, boolean hit) {
+		super.dropCustomDeathLoot(level, source, hit);
 		spawnAtLocation(ItemRegistry.DYNAMITE.get());
 	}
 		

@@ -28,31 +28,31 @@ public class LuckyTNTTabs {
 			for(RegistryObject<? extends Item> item : LuckyTNTMod.RH.creativeTabItemLists.get("n")) {
 				populator.accept(item.get());
 			}
-        }).withTabsBefore(new ResourceLocation("spawn_eggs")).withTabsAfter(new ResourceLocation(LuckyTNTMod.MODID, "god_tnt")).build();
+        }).withTabsBefore(ResourceLocation.withDefaultNamespace("spawn_eggs")).withTabsAfter(ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "god_tnt")).build();
 		
 		GOD_TNT = CreativeModeTab.builder().title(Component.translatable("item_group.luckytntmod.god_tnt")).icon(() -> new ItemStack(BlockRegistry.THE_REVOLUTION.get())).displayItems((enabledFlags, populator) -> {
 			for(RegistryObject<? extends Item> item : LuckyTNTMod.RH.creativeTabItemLists.get("g")) {
 				populator.accept(item.get());
 			}
-        }).withTabsBefore(new ResourceLocation(LuckyTNTMod.MODID, "normal_tnt")).withTabsAfter(new ResourceLocation(LuckyTNTMod.MODID, "doomsday_tnt")).build();
+        }).withTabsBefore(ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "normal_tnt")).withTabsAfter(ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "doomsday_tnt")).build();
 		
 		DOOMSDAY_TNT = CreativeModeTab.builder().title(Component.translatable("item_group.luckytntmod.doomsday_tnt")).icon(() -> new ItemStack(BlockRegistry.CHUNK_TNT.get())).displayItems((enabledFlags, populator) -> {
 			for(RegistryObject<? extends Item> item : LuckyTNTMod.RH.creativeTabItemLists.get("d")) {
 				populator.accept(item.get());
 			}
-        }).withTabsBefore(new ResourceLocation(LuckyTNTMod.MODID, "god_tnt")).withTabsAfter(new ResourceLocation(LuckyTNTMod.MODID, "dynamite")).build();
+        }).withTabsBefore(ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "god_tnt")).withTabsAfter(ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "dynamite")).build();
 		
 		DYNAMITE = CreativeModeTab.builder().title(Component.translatable("item_group.luckytntmod.dynamite")).icon(() -> new ItemStack(ItemRegistry.DYNAMITE.get())).displayItems((enabledFlags, populator) -> {
 			for(RegistryObject<? extends Item> item : LuckyTNTMod.RH.creativeTabItemLists.get("dy")) {
 				populator.accept(item.get());
 			}
-        }).withTabsBefore(new ResourceLocation(LuckyTNTMod.MODID, "doomsday_tnt")).withTabsAfter(new ResourceLocation(LuckyTNTMod.MODID, "minecarts")).build();
+        }).withTabsBefore(ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "doomsday_tnt")).withTabsAfter(ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "minecarts")).build();
 		
 		MINECART = CreativeModeTab.builder().title(Component.translatable("item_group.luckytntmod.minecarts")).icon(() -> new ItemStack(ItemRegistry.TNT_X5_MINECART.get())).displayItems((enabledFlags, populator) -> {
 			for(RegistryObject<? extends Item> item : LuckyTNTMod.RH.creativeTabItemLists.get("m")) {
 				populator.accept(item.get());
 			}
-        }).withTabsBefore(new ResourceLocation(LuckyTNTMod.MODID, "dynamite")).withTabsAfter(new ResourceLocation(LuckyTNTMod.MODID, "other")).build();
+        }).withTabsBefore(ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "dynamite")).withTabsAfter(ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "other")).build();
 		
 		OTHER = CreativeModeTab.builder().title(Component.translatable("item_group.luckytntmod.other")).icon(() -> new ItemStack(ItemRegistry.BLUE_CANDY.get())).displayItems((enabledFlags, populator) -> {
 			populator.accept(ItemRegistry.NUCLEAR_WASTE.get());
@@ -75,14 +75,14 @@ public class LuckyTNTTabs {
 			populator.accept(ItemRegistry.DEATH_RAY_RAY.get());
 			populator.accept(ItemRegistry.VACUUM_CLEANER.get());
 			populator.accept(ItemRegistry.TOXIC_STONE.get());
-        }).withTabsBefore(new ResourceLocation(LuckyTNTMod.MODID, "minecarts")).build();
+        }).withTabsBefore(ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "minecarts")).build();
 		
 		
-		event.register(Registries.CREATIVE_MODE_TAB, new ResourceLocation(LuckyTNTMod.MODID, "normal_tnt"), () -> NORMAL_TNT);
-		event.register(Registries.CREATIVE_MODE_TAB, new ResourceLocation(LuckyTNTMod.MODID, "god_tnt"), () -> GOD_TNT);
-		event.register(Registries.CREATIVE_MODE_TAB, new ResourceLocation(LuckyTNTMod.MODID, "doomsday_tnt"), () -> DOOMSDAY_TNT);
-		event.register(Registries.CREATIVE_MODE_TAB, new ResourceLocation(LuckyTNTMod.MODID, "dynamite"), () -> DYNAMITE);
-		event.register(Registries.CREATIVE_MODE_TAB, new ResourceLocation(LuckyTNTMod.MODID, "minecarts"), () -> MINECART);
-		event.register(Registries.CREATIVE_MODE_TAB, new ResourceLocation(LuckyTNTMod.MODID, "other"), () -> OTHER);
+		event.register(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "normal_tnt"), () -> NORMAL_TNT);
+		event.register(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "god_tnt"), () -> GOD_TNT);
+		event.register(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "doomsday_tnt"), () -> DOOMSDAY_TNT);
+		event.register(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "dynamite"), () -> DYNAMITE);
+		event.register(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "minecarts"), () -> MINECART);
+		event.register(Registries.CREATIVE_MODE_TAB, ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "other"), () -> OTHER);
 	}
 }

@@ -17,6 +17,6 @@ public class AngryMinerRenderer extends HumanoidMobRenderer<AngryMiner, Humanoid
 	
 	@Override
 	public ResourceLocation getTextureLocation(AngryMiner entity) {
-		return new ResourceLocation("luckytntmod:textures/angryminer.png");
+		return ResourceLocation.parse("luckytntmod:textures/angryminer.png");
 	}
 }

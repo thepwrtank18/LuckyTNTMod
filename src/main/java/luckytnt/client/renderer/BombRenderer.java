@@ -27,12 +27,12 @@ public class BombRenderer extends EntityRenderer<LExplosiveProjectile>{
 		stack.pushPose();
 		stack.scale(entity.getEffect().getSize(entity), entity.getEffect().getSize(entity), entity.getEffect().getSize(entity));
 		VertexConsumer vc = buffer.getBuffer(RenderType.entityCutout(getTextureLocation(entity)));
-		model.renderToBuffer(stack, vc, light, OverlayTexture.NO_OVERLAY, 1, 1, 1, 0.0625f);
+		model.renderToBuffer(stack, vc, light, OverlayTexture.NO_OVERLAY);
 		super.render(entity, rotY, partialTicks, stack, buffer, light);
 		stack.popPose();
 	}
 	
 	public ResourceLocation getTextureLocation(LExplosiveProjectile entity) {
-		return new ResourceLocation("luckytntmod:textures/tsarbomb.png");
+		return ResourceLocation.parse("luckytntmod:textures/tsarbomb.png");
 	}
 }

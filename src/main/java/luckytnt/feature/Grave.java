@@ -49,9 +49,9 @@ public class Grave extends Feature<NoneFeatureConfiguration>{
 	public BlockState chestSouthLeft = Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.LEFT);
 	public BlockState chestSouthRight = Blocks.CHEST.defaultBlockState().setValue(ChestBlock.FACING, Direction.SOUTH).setValue(ChestBlock.TYPE, ChestType.RIGHT);
 	
-	public static ResourceLocation GRAVE_LOOT_1 = new ResourceLocation("luckytntmod:chests/grave_loot_1");
-	public static ResourceLocation GRAVE_LOOT_2 = new ResourceLocation("luckytntmod:chests/grave_loot_2");
-	public static ResourceLocation GRAVE_LOOT_RARE = new ResourceLocation("luckytntmod:chests/grave_loot_rare");
+	public static ResourceLocation GRAVE_LOOT_1 = ResourceLocation.parse("luckytntmod:chests/grave_loot_1");
+	public static ResourceLocation GRAVE_LOOT_2 = ResourceLocation.parse("luckytntmod:chests/grave_loot_2");
+	public static ResourceLocation GRAVE_LOOT_RARE = ResourceLocation.parse("luckytntmod:chests/grave_loot_rare");
 	
 	public Grave(Codec<NoneFeatureConfiguration> codec) {
 		super(codec);

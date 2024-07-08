@@ -11,8 +11,7 @@ public class PacketHandler {
 
 	public static final int PROTOCOL_VERSION = 1;
 	
-	public static final SimpleChannel CHANNEL = ChannelBuilder.named(new ResourceLocation(LuckyTNTMod.MODID, "main")).networkProtocolVersion(PROTOCOL_VERSION).acceptedVersions(VersionTest.exact(PROTOCOL_VERSION)).simpleChannel();
-	//(new ResourceLocation("luckytntmod", "main"), () -> PROTOCOL_VERSION, PROTOCOL_VERSION::equals, PROTOCOL_VERSION::equals);
+	public static final SimpleChannel CHANNEL = ChannelBuilder.named(ResourceLocation.fromNamespaceAndPath(LuckyTNTMod.MODID, "main")).networkProtocolVersion(PROTOCOL_VERSION).acceptedVersions(VersionTest.exact(PROTOCOL_VERSION)).simpleChannel();
 	
 	private PacketHandler() {	
 	}
@@ -26,13 +25,5 @@ public class PacketHandler {
 		CHANNEL.messageBuilder(ClientboundFreezeNBTPacket.class, index++, NetworkDirection.PLAY_TO_CLIENT).encoder(ClientboundFreezeNBTPacket::encode).decoder(ClientboundFreezeNBTPacket::new).consumerNetworkThread(ClientboundFreezeNBTPacket::handle).add();
 		CHANNEL.messageBuilder(ClientboundBooleanNBTPacket.class, index++, NetworkDirection.PLAY_TO_CLIENT).encoder(ClientboundBooleanNBTPacket::encode).decoder(ClientboundBooleanNBTPacket::new).consumerNetworkThread(ClientboundBooleanNBTPacket::handle).add();
 		CHANNEL.messageBuilder(ClientboundHydrogenBombPacket.class, index++, NetworkDirection.PLAY_TO_CLIENT).encoder(ClientboundHydrogenBombPacket::encode).decoder(ClientboundHydrogenBombPacket::new).consumerNetworkThread(ClientboundHydrogenBombPacket::handle).add();
-		/*CHANNEL.registerMessage(index++, ClientboundStringNBTPacket.class, ClientboundStringNBTPacket::encode, ClientboundStringNBTPacket::new, ClientboundStringNBTPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(index++, ClientboundIntNBTPacket.class, ClientboundIntNBTPacket::encode, ClientboundIntNBTPacket::new, ClientboundIntNBTPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(index++, ClientboundLevelVariablesPacket.class, ClientboundLevelVariablesPacket::encode, ClientboundLevelVariablesPacket::new, ClientboundLevelVariablesPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(index++, ClientboundToxicCloudPacket.class, ClientboundToxicCloudPacket::encode, ClientboundToxicCloudPacket::new, ClientboundToxicCloudPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(index++, ClientboundFreezeNBTPacket.class, ClientboundFreezeNBTPacket::encode, ClientboundFreezeNBTPacket::new, ClientboundFreezeNBTPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(index++, ClientboundBooleanNBTPacket.class, ClientboundBooleanNBTPacket::encode, ClientboundBooleanNBTPacket::new, ClientboundBooleanNBTPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		CHANNEL.registerMessage(index++, ClientboundHydrogenBombPacket.class, ClientboundHydrogenBombPacket::encode, ClientboundHydrogenBombPacket::new, ClientboundHydrogenBombPacket::handle, Optional.of(NetworkDirection.PLAY_TO_CLIENT));
-		*/
 	}
 }
